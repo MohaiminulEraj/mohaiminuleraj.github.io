@@ -19,6 +19,13 @@ body {
   overflow: hidden;
   display: block;
   border: 4px solid #23a6d5;
+  animation: bounceIn 1s ease-out, float 3s ease-in-out infinite 1s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(35, 166, 213, 0.3);
 }
 
 hr {
@@ -35,6 +42,7 @@ hr {
   background: transparent;
   border-radius: 18px;
   padding: 24px 0 16px 0;
+  animation: fadeIn 1s ease-out 2.5s both;
 }
 
 .edu > h1 {
@@ -43,6 +51,26 @@ hr {
   padding: 10px 0 6px 0;
   font-size: 2.1rem;
   letter-spacing: 1px;
+  position: relative;
+}
+
+.edu > h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #ff9800, #23a6d5);
+  border-radius: 2px;
+  animation: expandWidth 1s ease-out 3s forwards;
+}
+
+@keyframes expandWidth {
+  to {
+    width: 80%;
+  }
 }
 
 .list-tag {
@@ -86,12 +114,48 @@ hr {
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: slideInUp 0.6s ease-out forwards;
+}
+
+.skill-category:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.skill-category:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.skill-category:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.skill-category:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.skill-category:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.skill-category:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.skill-category:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.skill-category:nth-child(8) {
+  animation-delay: 0.8s;
+}
+
+@keyframes slideInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .skill-category:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .skill-category h3 {
@@ -169,6 +233,11 @@ hr {
   font-size: 2.2rem;
   color: #fff;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+  animation: fadeIn 1s ease-out 0.5s both;
+}
+
+#center > .about_me {
+  animation: fadeIn 1s ease-out 1s both;
 }
 
 #center > .contact-button {
@@ -180,27 +249,34 @@ hr {
   color: #ff9800;
   border-radius: 45px;
   background: #fff;
-  transition: background 0.3s, color 0.3s;
+  transition: all 0.3s ease;
   margin-top: 18px;
   display: inline-block;
+  animation: scaleIn 1s ease-out 1.5s both;
 }
 
 #center > .contact-button:hover {
   background-color: #ff9800;
   color: #fff;
   cursor: pointer;
-  box-shadow: 0 2px 12px rgba(255, 152, 0, 0.13);
+  box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.front-icon {
+  animation: slideInLeft 1s ease-out 2s both;
 }
 
 .front-icon svg {
   text-align: center;
   color: #ff9800;
-  transition: color 0.3s, transform 0.3s;
+  transition: all 0.3s ease;
 }
 
 .front-icon svg:hover {
-  transform: scale(1.2);
+  transform: scale(1.3) rotate(5deg);
   color: #23a6d5;
+  filter: drop-shadow(0 0 8px rgba(35, 166, 213, 0.6));
 }
 
 table {
@@ -742,12 +818,30 @@ footer {
   background: #f8f9fa;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border-left: 4px solid #23a6d5;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateX(-50px);
+  animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.job:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.job:nth-child(3) {
+  animation-delay: 0.4s;
+}
+.job:nth-child(4) {
+  animation-delay: 0.6s;
+}
+.job:nth-child(5) {
+  animation-delay: 0.8s;
 }
 
 .job:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px) translateX(5px);
+  box-shadow: 0 8px 25px rgba(35, 166, 213, 0.15);
+  border-left-color: #ff9800;
+  background: #ffffff;
 }
 
 .job:last-child {
@@ -878,6 +972,67 @@ footer {
   }
 }
 
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -887,6 +1042,16 @@ footer {
   }
   100% {
     transform: scale(1);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(35, 166, 213, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(35, 166, 213, 0.8);
   }
 }
 
