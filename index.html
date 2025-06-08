@@ -73,7 +73,7 @@
       </div>
     </section>
     <section id="experience">
-      <h2>My Experience</h2>
+      <h2>Skills</h2>
 
       <div class="front-end">
         <i class="fas fa-laptop fa-2x"></i>
@@ -111,6 +111,138 @@
           <li>Bower</li>
           <li>Atom || Webstorm</li>
           <li>Github && Gitlab</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="work-experience">
+      <h2>Work Experience</h2>
+
+      <div class="job">
+        <div class="job-header">
+          <h3>Sr. Software Engineer (Backend Focused)</h3>
+          <div class="job-meta">
+            <span class="company">Neoscoder</span>
+            <span class="job-date">March 2025 – Present</span>
+          </div>
+        </div>
+        <ul class="job-description">
+          <li>
+            Developing and maintaining backend services using Node.js and
+            NestJS.
+          </li>
+          <li>
+            Designing and optimizing relational and NoSQL databases for
+            performance and scalability.
+          </li>
+          <li>
+            Mentoring junior developers, conducting code reviews, and providing
+            technical guidance.
+          </li>
+          <li>
+            Implementing and maintaining CI/CD pipelines to streamline
+            deployment workflows.
+          </li>
+          <li>
+            Collaborating closely with frontend and mobile teams to deliver
+            seamless product features.
+          </li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <h3>Software Engineer (Backend Focused)</h3>
+          <div class="job-meta">
+            <span class="company">Anchorblock Technology</span>
+            <span class="job-date">August 2022 – February 2025</span>
+          </div>
+        </div>
+        <ul class="job-description">
+          <li>
+            Contribute to full-stack development using JavaScript (Nest.js,
+            React.js) and deployment
+          </li>
+          <li>
+            Develop and optimize features in collaboration with
+            cross-disciplinary teams
+          </li>
+          <li>
+            Participate in code reviews and provide feedback on feature
+            developments
+          </li>
+          <li>
+            Enhance database structures, queries, and indexing for improved
+            performance
+          </li>
+          <li>
+            Implement security protocols to protect data and prevent
+            unauthorized access
+          </li>
+          <li>
+            Develop and integrate backend elements such as APIs and
+            microservices
+          </li>
+          <li>
+            Explore emerging technologies to innovate and improve system
+            architecture
+          </li>
+          <li>Utilizing GitHub Actions for CI/CD pipelines.</li>
+          <li>Deploying backend infrastructure with Docker on AWS.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <h3>Fullstack Blockchain Engineer</h3>
+          <div class="job-meta">
+            <span class="company">Obboy Labs</span>
+            <span class="job-date">January 2022 - July 2022</span>
+          </div>
+        </div>
+        <ul class="job-description">
+          <li>
+            Worked on and deployed multi-signature crypto wallet on Polygon Main
+            Network
+          </li>
+          <li>Created and deployed smart contracts using Solidity</li>
+          <li>
+            Built and deployed an NFT Marketplace with full-stack
+            responsibilities
+          </li>
+          <li>
+            Utilized GraphQL for querying blockchain data and integrated with
+            PostgreSQL
+          </li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <h3>Jr. Software Engineer</h3>
+          <div class="job-meta">
+            <span class="company">Techdojo Limited</span>
+            <span class="job-date">October 2020 - November 2021</span>
+          </div>
+        </div>
+        <ul class="job-description">
+          <li>
+            Developed web applications using the MERN stack (MongoDB,
+            Express.js, React, Node.js)
+          </li>
+          <li>
+            Utilized Next.js for server-side rendering to optimize web
+            application performance
+          </li>
+          <li>
+            Led the creation of an interactive website "CARE FOR YOU" from the
+            ground up
+          </li>
+          <li>
+            Developed a Point of Sale (POS) desktop application using
+            Electron.js Framework
+          </li>
+          <li>Worked on Mobile Application Development using React Native.</li>
         </ul>
       </div>
     </section>
@@ -278,7 +410,11 @@
       </div>
     </section>
     <footer>
-      <h5>&copy; Mohaiminul Eraj, 2020</h5>
+      <h5>&copy; Mohaiminul Eraj, <span id="current-year"></span></h5>
+      <script>
+        document.getElementById("current-year").textContent =
+          new Date().getFullYear();
+      </script>
     </footer>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
   </body>
