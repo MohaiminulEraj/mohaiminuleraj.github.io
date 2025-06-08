@@ -251,20 +251,57 @@ img:hover {
 
 #projects {
   background-color: #fff;
-  padding: 0 0 40px 0;
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(35, 166, 213, 0.03),
+    rgba(255, 255, 255, 0.8),
+    rgba(255, 152, 0, 0.03)
+  );
+  background-size: cover;
+  padding: 30px 0 50px 0;
   margin: 0;
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
-  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  /* Ensure content is always visible */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#projects::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: linear-gradient(90deg, #ff9800, #23a6d5);
+  z-index: 2;
 }
 
 #projects > h1 {
   text-align: center;
-  margin-top: 0;
+  margin-top: 10px;
   font-size: 2.5rem;
   padding-top: 18px;
   color: #23a6d5;
   font-weight: 700;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#projects > h1::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #ff9800, transparent);
+  margin: 10px auto 0;
+  border-radius: 2px;
 }
 
 #projects > p {
@@ -311,26 +348,20 @@ img:hover {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   margin: 32px auto;
   max-width: 950px;
-  padding: 32px 24px;
+  padding: 32px 28px;
   gap: 36px;
   flex-wrap: wrap;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(35, 166, 213, 0.1);
 }
-.project.left-img .project-img {
-  order: 0;
-}
-.project.left-img .project-info {
-  order: 1;
-}
-.project.right-img .project-img {
-  order: 1;
-}
-.project.right-img .project-info {
-  order: 0;
+.project:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 .project-img {
@@ -340,13 +371,33 @@ img:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
+
+.project-img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 2px rgba(35, 166, 213, 0.2);
+  pointer-events: none;
+}
+
 .project-img img {
   width: 100%;
   height: auto;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(35, 166, 213, 0.13);
+  box-shadow: 0 4px 16px rgba(35, 166, 213, 0.15);
+  transition: transform 0.3s ease;
 }
+
+.project:hover .project-img img {
+  transform: scale(1.03);
+}
+
 .project-info {
   flex: 1 1 320px;
   min-width: 220px;
@@ -629,10 +680,46 @@ footer {
 /* --- Work Experience Section Styling --- */
 #work-experience {
   background-color: #fff;
-  padding: 1em 2em 1.5em;
+  background-image: linear-gradient(
+      to top right,
+      rgba(255, 152, 0, 0.03),
+      rgba(255, 255, 255, 0.8),
+      rgba(35, 166, 213, 0.03)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      #f8f9fa 0px,
+      #f8f9fa 10px,
+      #ffffff 10px,
+      #ffffff 20px
+    );
+  background-size: cover, 20px 20px;
+  padding: 1em 2em 2.5em;
   border-radius: 18px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   margin: 0;
+  position: relative;
+  z-index: 1;
+  /* Ensure content is always visible */
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#work-experience::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(35, 166, 213, 0.6),
+    transparent
+  );
+  z-index: -1;
 }
 
 #work-experience h2 {
@@ -640,17 +727,27 @@ footer {
   font-size: 2.2rem;
   color: #23a6d5;
   font-weight: 700;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .job {
   max-width: 900px;
-  margin: 0 auto 18px auto;
-  padding: 15px 25px;
+  margin: 0 auto 22px auto;
+  padding: 18px 25px;
   border-radius: 12px;
   background: #f8f9fa;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border-left: 4px solid #23a6d5;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.job:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .job:last-child {
@@ -708,4 +805,114 @@ footer {
   .job {
     padding: 16px 18px;
   }
+}
+
+/* --- Section separator styling --- */
+.section-separator {
+  height: 0;
+  position: relative;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.2)
+  );
+  margin: 0;
+  z-index: 2;
+  overflow: visible;
+}
+
+.section-separator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #ffffff, #f7f9fc);
+  border-radius: 50%;
+  box-shadow: 0 2px 15px rgba(35, 166, 213, 0.2);
+  z-index: 3;
+}
+
+.section-separator::before {
+  content: "✦";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #23a6d5;
+  font-size: 20px;
+  text-shadow: 0 0 10px rgba(35, 166, 213, 0.3);
+  z-index: 4;
+  animation: separatorPulse 2s infinite;
+}
+
+.section-separator:hover::before {
+  animation: none;
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+@keyframes separatorPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Animation keyframes for improved user experience */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply animations on scroll with intersection observer */
+.animate-on-scroll {
+  opacity: 1 !important; /* Always visible by default */
+  animation-fill-mode: forwards;
+}
+
+/* Ensure sections and their content are always visible */
+#work-experience,
+#projects,
+#work-experience *,
+#projects * {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Optional animation effects that don't interfere with visibility */
+.animate-on-scroll.visible {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Remove problematic opacity overrides */
+.job,
+.project {
+  visibility: visible !important;
+  opacity: 1 !important;
 }
