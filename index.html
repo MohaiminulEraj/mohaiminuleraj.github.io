@@ -81,43 +81,46 @@
           <h3>Backend</h3>
           <p>Node.js, Nest.js, TypeScript, Express.js</p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-database fa-2x"></i>
           <h3>Databases</h3>
           <p>PostgreSQL, MySQL, MongoDB, Influx DB, Redis</p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-cloud fa-2x"></i>
           <h3>Cloud & DevOps</h3>
-          <p>AWS, VPC Peering, Route 53, Docker, CI/CD (GitHub Actions), Nginx, PM2, Pulumi (IaC)</p>
+          <p>
+            AWS, VPC Peering, Route 53, Docker, CI/CD (GitHub Actions), Nginx,
+            PM2, Pulumi (IaC)
+          </p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-code fa-2x"></i>
           <h3>Frontend</h3>
           <p>React.js, Next.js</p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-screwdriver-wrench fa-2x"></i>
           <h3>Tools & Technologies</h3>
           <p>Git, Linux</p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-link fa-2x"></i>
           <h3>Blockchain</h3>
           <p>Ethereum, Hyperledger Fabric, Hardhat, Hyperledger Besu & IPFS</p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-flask fa-2x"></i>
           <h3>Testing</h3>
           <p>Jest, Mocha</p>
         </div>
-        
+
         <div class="skill-category">
           <i class="fas fa-diagram-project fa-2x"></i>
           <h3>Methodologies</h3>
@@ -126,7 +129,7 @@
       </div>
     </section>
 
-    <section id="work-experience">
+    <section id="work-experience" class="animate-on-scroll">
       <h2>Work Experience</h2>
 
       <div class="job">
@@ -258,8 +261,10 @@
       </div>
     </section>
 
-    <section id="projects">
-      <h1>Project</h1>
+    <div class="section-separator"></div>
+
+    <section id="projects" class="animate-on-scroll">
+      <h1>Projects</h1>
       <p style="text-align: center">Here are few of my academic projects.</p>
       <br /><br />
 
@@ -406,7 +411,9 @@
             ><i class="fa-brands fa-github"></i
           ></a>
         </div>
-        <p><i class="fa-solid fa-envelope fa-sm"></i> mohaiminuleraj@gmail.com</p>
+        <p>
+          <i class="fa-solid fa-envelope fa-sm"></i> mohaiminuleraj@gmail.com
+        </p>
         <p><i class="fa-solid fa-location-dot"></i> Sector-7, Uttara, Dhaka</p>
 
         <div class="myMap">
@@ -423,8 +430,30 @@
     <footer>
       <h5>&copy; Mohaiminul Eraj, <span id="current-year"></span></h5>
       <script>
+        // Update copyright year
         document.getElementById("current-year").textContent =
           new Date().getFullYear();
+
+        // Simple scroll animation - only add effects, never hide content
+        document.addEventListener("DOMContentLoaded", function () {
+          if ("IntersectionObserver" in window) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                  }
+                });
+              },
+              { threshold: 0.1 }
+            );
+
+            // Observe sections for optional animation effects
+            document.querySelectorAll(".animate-on-scroll").forEach((item) => {
+              observer.observe(item);
+            });
+          }
+        });
       </script>
     </footer>
     <script src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
