@@ -1,461 +1,1757 @@
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mohaiminul Eraj</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="responsive.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@900&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <section>
-      <div id="center">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Mohaiminul Islam Eraj — Full Stack Software Engineer with 5+ years experience in Node.js, NestJS, React, PostgreSQL, and AWS.">
+<title>Mohaiminul Islam Eraj — Software Engineer</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- Three.js and GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+  :root {
+    --bg: #080c10;
+    --bg-2: #0d1117;
+    --bg-3: #141922;
+    --bg-card: #111820;
+    --accent: #00d4ff;
+    --accent-2: #7c6af5;
+    --accent-3: #00ff88;
+    --text: #e8edf2;
+    --text-muted: #8892a4;
+    --text-dim: #4a5568;
+    --border: rgba(0, 212, 255, 0.12);
+    --border-hover: rgba(0, 212, 255, 0.3);
+    --font: 'Space Grotesk', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* CANVAS */
+  #canvas-3d {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 5%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(8, 12, 16, 0.8);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: background 0.3s;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo span { color: var(--text-muted); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+    text-transform: uppercase;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent) !important;
+    border: 1px solid var(--border-hover) !important;
+    padding: 6px 16px;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: rgba(0, 212, 255, 0.1) !important;
+    color: var(--accent) !important;
+  }
+
+  /* MAIN LAYOUT */
+  main { position: relative; z-index: 1; }
+
+  section {
+    position: relative;
+    padding: 120px 5%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 120px;
+    padding-bottom: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+  }
+
+  .hero-name {
+    font-size: clamp(42px, 7vw, 88px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    opacity: 0;
+  }
+
+  .hero-name .line-1 { color: var(--text); }
+  .hero-name .line-2 {
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(0, 212, 255, 0.5);
+  }
+
+  .hero-role {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--text-muted);
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+  }
+
+  .hero-role .accent { color: var(--accent); font-weight: 500; }
+
+  .hero-desc {
+    max-width: 560px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    opacity: 0;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .btn-primary:hover { transform: translateY(-2px); opacity: 0.9; }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border-hover);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 13px;
+    padding: 12px 28px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--accent);
+    background: rgba(0, 212, 255, 0.05);
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    opacity: 0;
+  }
+
+  .meta-stat .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text);
+    font-family: var(--mono);
+  }
+
+  .meta-stat .num span { color: var(--accent); }
+
+  .meta-stat .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 2px;
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+  }
+
+  .scroll-line {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    transform-origin: left;
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleX(0.5); }
+    50% { opacity: 1; transform: scaleX(1); }
+  }
+
+  .scroll-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    margin-bottom: 4rem;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--text);
+  }
+
+  /* ABOUT */
+  #about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .about-content .section-header { margin-bottom: 2rem; }
+
+  .about-text {
+    font-size: 16px;
+    line-height: 1.9;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .about-highlight {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .tech-stack {
+    margin-top: 2.5rem;
+  }
+
+  .tech-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    background: rgba(0, 212, 255, 0.06);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    padding: 4px 12px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .profile-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 380px;
+  }
+
+  .profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    filter: grayscale(20%) contrast(1.05);
+    display: block;
+  }
+
+  .profile-border {
+    position: absolute;
+    inset: -8px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    z-index: -1;
+  }
+
+  .profile-accent {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--accent);
+    border-radius: 4px;
+    bottom: -20px;
+    right: -20px;
+    opacity: 0.5;
+  }
+
+  .profile-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    top: -12px;
+    left: 40px;
+    box-shadow: 0 0 12px var(--accent-3);
+  }
+
+  .availability-badge {
+    position: absolute;
+    bottom: 20px;
+    left: -20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .badge-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent-3);
+    border-radius: 50%;
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--accent-3);
+    animation: pulse 2s ease infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+
+  .badge-text {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text-muted);
+  }
+
+  .badge-text strong { color: var(--accent-3); }
+
+  /* SKILLS */
+  #skills { padding-top: 0; }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .skill-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.75rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--card-accent, var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .skill-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+  }
+
+  .skill-card:hover::before { opacity: 1; }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  .skill-category {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .skill-items {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  /* EXPERIENCE */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.5rem;
+    top: 8px;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    background: var(--bg);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+  }
+
+  .timeline-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  .timeline-company {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(0, 212, 255, 0.08);
+    border: 1px solid rgba(0, 212, 255, 0.15);
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.08em;
+  }
+
+  .timeline-role {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .timeline-items {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .timeline-items li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.6;
+  }
+
+  .timeline-items li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 3px;
+  }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 2rem;
+    transition: border-color 0.3s, transform 0.3s;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    opacity: 0;
+  }
+
+  .project-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .project-icon {
+    font-size: 32px;
+    line-height: 1;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 10px;
+  }
+
+  .project-links a {
+    color: var(--text-dim);
+    transition: color 0.2s;
+    text-decoration: none;
+    font-size: 18px;
+  }
+
+  .project-links a:hover { color: var(--accent); }
+
+  .project-title {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .stack-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 3px 9px;
+    border-radius: 3px;
+  }
+
+  /* CONTACT */
+  #contact {
+    text-align: center;
+  }
+
+  #contact .section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  #contact .section-label {
+    justify-content: center;
+  }
+
+  #contact .section-label::before { display: none; }
+
+  .contact-tagline {
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    max-width: 640px;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+
+  .contact-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 18px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+    margin-bottom: 3rem;
+  }
+
+  .contact-email:hover { border-color: var(--accent); }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid var(--border);
+    padding: 10px 20px;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .social-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(0, 212, 255, 0.05);
+  }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 5%;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  footer span { color: var(--accent); }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* GRID OVERLAY */
+  .grid-overlay {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0, 212, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* GLOW ORBS */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    filter: blur(120px);
+    opacity: 0.12;
+  }
+
+  .glow-1 {
+    width: 500px; height: 500px;
+    background: var(--accent);
+    top: -100px; right: -100px;
+  }
+
+  .glow-2 {
+    width: 400px; height: 400px;
+    background: var(--accent-2);
+    bottom: 20%; left: -100px;
+  }
+
+  /* HAMBURGER */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+    background: var(--text-muted);
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  /* REVEAL class */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PROJECT CATEGORY DIVIDER */
+  .projects-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  .projects-divider-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 4px 14px;
+    border-radius: 3px;
+    border: 1px solid;
+  }
+
+  .projects-divider-label.web {
+    color: var(--accent);
+    border-color: rgba(0, 212, 255, 0.25);
+    background: rgba(0, 212, 255, 0.06);
+  }
+
+  .projects-divider-label.chain {
+    color: #a78bfa;
+    border-color: rgba(167, 139, 250, 0.25);
+    background: rgba(167, 139, 250, 0.06);
+  }
+
+  .projects-divider-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* BLOCKCHAIN PROJECT CARD ACCENT */
+  .project-card.blockchain { --card-accent: #a78bfa; }
+  .project-card.blockchain:hover { border-color: rgba(167, 139, 250, 0.35); }
+  .project-card.blockchain::before { background: #a78bfa; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    #about {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .about-visual {
+      order: -1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-frame { max-width: 280px; }
+    .availability-badge { display: none; }
+
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+
+    .hero-meta { gap: 1.5rem; flex-wrap: wrap; }
+    .projects-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 600px) {
+    section { padding: 80px 6%; }
+    .hero-actions { flex-direction: column; align-items: flex-start; }
+    .contact-email { font-size: 15px; }
+    nav { padding: 0 6%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 3D Canvas -->
+<canvas id="canvas-3d"></canvas>
+
+<!-- Background effects -->
+<div class="grid-overlay"></div>
+<div class="glow-orb glow-1"></div>
+<div class="glow-orb glow-2"></div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <div class="nav-logo">
+    <span>~/</span>eraj
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MAIN -->
+<main>
+
+  <!-- HERO -->
+  <div style="position:relative; z-index:1;">
+  <section id="hero">
+    <p class="hero-eyebrow">// Full Stack Software Engineer</p>
+
+    <h1 class="hero-name">
+      <span class="line-1">Mohaiminul</span><br>
+      <span class="line-2">Islam Eraj.</span>
+    </h1>
+
+    <p class="hero-role">
+      Building <span class="accent">scalable systems</span> &amp; high-performance backends
+    </p>
+
+    <p class="hero-desc">
+      5+ years crafting production-grade web applications — from real-time WebSocket systems
+      and microservice architectures to accounting SaaS and healthcare platforms. Currently
+      at Digiground, Australia (remote).
+    </p>
+
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View Projects →</a>
+      <a href="mailto:eraj471@gmail.com" class="btn-secondary">Get in Touch</a>
+    </div>
+
+    <div class="hero-meta">
+      <div class="meta-stat">
+        <div class="num">5<span>+</span></div>
+        <div class="label">Years Experience</div>
+      </div>
+      <div class="meta-stat">
+        <div class="num">4</div>
+        <div class="label">Companies</div>
+      </div>
+      <div class="meta-stat">
+        <div class="num">10<span>+</span></div>
+        <div class="label">Production Projects</div>
+      </div>
+      <div class="meta-stat">
+        <div class="num"><span>🌏</span></div>
+        <div class="label">Remote / Global</div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-content">
+      <div class="section-header">
+        <div class="section-label">About Me</div>
+        <h2 class="section-title">Architect of<br>Digital Experiences</h2>
+      </div>
+
+      <p class="about-text">
+        I'm a <span class="about-highlight">Full Stack Software Engineer</span> with deep roots in backend
+        systems. I specialize in building the invisible infrastructure that makes products work at scale —
+        from complex API design and database optimization to real-time communication and cloud deployment.
+      </p>
+
+      <p class="about-text">
+        Currently building at <a href="#" class="about-highlight">Digiground, Australia</a> (remote).
+        Previously at Neoscoder (Akij Venture Group), and Anchorblock Technology where I shipped
+        AnchorBooks — a multi-tenant accounting SaaS serving real users.
+      </p>
+
+      <p class="about-text">
+        Based in <span class="about-highlight">Dhaka, Bangladesh</span>, open to global remote opportunities.
+        CS major from Independent University, Bangladesh (2022).
+      </p>
+
+      <div class="tech-stack">
+        <div class="tech-label">Core Stack</div>
+        <div class="tech-list">
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">NestJS</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">PostgreSQL</span>
+          <span class="tech-tag">Redis</span>
+          <span class="tech-tag">Docker</span>
+          <span class="tech-tag">AWS</span>
+          <span class="tech-tag">Kafka</span>
+          <span class="tech-tag">WebSockets</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-visual reveal">
+      <div class="profile-frame">
         <img
-          class="profile-pic"
+          class="profile-img"
           src="img/Eraj.jpg"
-          alt="Mohaiminul Eraj"
-          width="200px"
-          height="213px"
-        />
-        <h2>S.M. Mohaiminul Islam Eraj</h2>
-        <hr />
-        <p class="about_me">
-          Tech Enthusiast . Programmer . Blockchain Developer
-        </p>
-        <a class="contact-button" href="mailto:eraj471@gmail.com"
-          >Get in Touch</a
-        ><br /><br /><br />
-        <div class="front-icon">
-          <a href="https://www.github.com/MohaiminulEraj" target="_blank"
-            ><i class="fa-brands fa-github-alt fa-lg"></i></a
-          >&emsp;<a href="https://www.facebook.com/Eraj.K4linux" target="_blank"
-            ><i class="fa-brands fa-facebook-f fa-lg"></i></a
-          >&emsp;<a href="https://twitter.com/MohaiminulEraj" target="_blank"
-            ><i class="fa-brands fa-twitter fa-lg"></i></a
-          >&emsp;<a href="https://www.gitlab.com/MohaiminulEraj" target="_blank"
-            ><i class="fa-brands fa-gitlab fa-lg"></i
-          ></a>
-        </div>
-        <!-- &emsp; refers to a tab space -->
-        <div class="edu">
-          <h1><u>Educational Qualifications</u></h1>
-          <table>
-            <tr>
-              <th>QUALIFICATION</th>
-              <th>BOARD</th>
-              <th>SCHOOL/COLLEGE</th>
-            </tr>
-            <tr>
-              <td>SSC</td>
-              <td>Dhaka</td>
-              <td>Milestone College</td>
-            </tr>
-            <tr>
-              <td>HSC</td>
-              <td>Dhaka</td>
-              <td>Milestone College</td>
-            </tr>
-            <tr>
-              <td>BSc in CSE</td>
-              <td>Dhaka</td>
-              <td>Independent University, Bangladesh</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </section>
-    <section id="experience">
-      <h2>Skills</h2>
-
-      <div class="skills-container">
-        <div class="skill-category">
-          <i class="fas fa-server fa-2x"></i>
-          <h3>Backend</h3>
-          <p>Node.js, Nest.js, TypeScript, Express.js</p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-database fa-2x"></i>
-          <h3>Databases</h3>
-          <p>PostgreSQL, MySQL, MongoDB, Influx DB, Redis</p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-cloud fa-2x"></i>
-          <h3>Cloud & DevOps</h3>
-          <p>
-            AWS, VPC Peering, Route 53, Docker, CI/CD (GitHub Actions), Nginx,
-            PM2, Pulumi (IaC)
-          </p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-code fa-2x"></i>
-          <h3>Frontend</h3>
-          <p>React.js, Next.js</p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-screwdriver-wrench fa-2x"></i>
-          <h3>Tools & Technologies</h3>
-          <p>Git, Linux</p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-link fa-2x"></i>
-          <h3>Blockchain</h3>
-          <p>Ethereum, Hyperledger Fabric, Hardhat, Hyperledger Besu & IPFS</p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-flask fa-2x"></i>
-          <h3>Testing</h3>
-          <p>Jest, Mocha</p>
-        </div>
-
-        <div class="skill-category">
-          <i class="fas fa-diagram-project fa-2x"></i>
-          <h3>Methodologies</h3>
-          <p>Agile, SDLC</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="work-experience" class="animate-on-scroll">
-      <h2>Work Experience</h2>
-
-      <div class="job">
-        <div class="job-header">
-          <h3>Sr. Software Engineer (Backend Focused)</h3>
-          <div class="job-meta">
-            <span class="company">Neoscoder</span>
-            <span class="job-date">March 2025 – Present</span>
-          </div>
-        </div>
-        <ul class="job-description">
-          <li>
-            Developing and maintaining backend services using Node.js and
-            NestJS.
-          </li>
-          <li>
-            Designing and optimizing relational and NoSQL databases for
-            performance and scalability.
-          </li>
-          <li>
-            Mentoring junior developers, conducting code reviews, and providing
-            technical guidance.
-          </li>
-          <li>
-            Implementing and maintaining CI/CD pipelines to streamline
-            deployment workflows.
-          </li>
-          <li>
-            Collaborating closely with frontend and mobile teams to deliver
-            seamless product features.
-          </li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <h3>Software Engineer (Backend Focused)</h3>
-          <div class="job-meta">
-            <span class="company">Anchorblock Technology</span>
-            <span class="job-date">August 2022 – February 2025</span>
-          </div>
-        </div>
-        <ul class="job-description">
-          <li>
-            Contribute to full-stack development using JavaScript (Nest.js,
-            React.js) and deployment
-          </li>
-          <li>
-            Develop and optimize features in collaboration with
-            cross-disciplinary teams
-          </li>
-          <li>
-            Participate in code reviews and provide feedback on feature
-            developments
-          </li>
-          <li>
-            Enhance database structures, queries, and indexing for improved
-            performance
-          </li>
-          <li>
-            Implement security protocols to protect data and prevent
-            unauthorized access
-          </li>
-          <li>
-            Develop and integrate backend elements such as APIs and
-            microservices
-          </li>
-          <li>
-            Explore emerging technologies to innovate and improve system
-            architecture
-          </li>
-          <li>Utilizing GitHub Actions for CI/CD pipelines.</li>
-          <li>Deploying backend infrastructure with Docker on AWS.</li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <h3>Fullstack Blockchain Engineer</h3>
-          <div class="job-meta">
-            <span class="company">Obboy Labs</span>
-            <span class="job-date">January 2022 - July 2022</span>
-          </div>
-        </div>
-        <ul class="job-description">
-          <li>
-            Worked on and deployed multi-signature crypto wallet on Polygon Main
-            Network
-          </li>
-          <li>Created and deployed smart contracts using Solidity</li>
-          <li>
-            Built and deployed an NFT Marketplace with full-stack
-            responsibilities
-          </li>
-          <li>
-            Utilized GraphQL for querying blockchain data and integrated with
-            PostgreSQL
-          </li>
-        </ul>
-      </div>
-
-      <div class="job">
-        <div class="job-header">
-          <h3>Jr. Software Engineer</h3>
-          <div class="job-meta">
-            <span class="company">Techdojo Limited</span>
-            <span class="job-date">October 2020 - November 2021</span>
-          </div>
-        </div>
-        <ul class="job-description">
-          <li>
-            Developed web applications using the MERN stack (MongoDB,
-            Express.js, React, Node.js)
-          </li>
-          <li>
-            Utilized Next.js for server-side rendering to optimize web
-            application performance
-          </li>
-          <li>
-            Led the creation of an interactive website "CARE FOR YOU" from the
-            ground up
-          </li>
-          <li>
-            Developed a Point of Sale (POS) desktop application using
-            Electron.js Framework
-          </li>
-          <li>Worked on Mobile Application Development using React Native.</li>
-        </ul>
-      </div>
-    </section>
-
-    <div class="section-separator"></div>
-
-    <section id="projects" class="animate-on-scroll">
-      <h1>Projects</h1>
-      <p style="text-align: center">Here are few of my academic projects.</p>
-      <br /><br />
-
-      <div class="project left-img">
-        <div class="project-img">
-          <img src="img/proj-4.png" alt="Health Care Platform project" />
-        </div>
-        <div class="project-info">
-          <h3>HEALTH CARE PLATFORM</h3>
-          <h5>
-            <b>Technology Used: </b>Node.js, React.js, Next.js, Redux,
-            Socket.io, MongoDB
-          </h5>
-          <p>
-            A Health Care platform that provides verified health related content
-            and doctors/medical experts will verify it and invalid articles will
-            be asked for review to stop fake news from spreading and this is
-            also a platform where patients can interact with doctors and talk to
-            specialists to diagnose their health problems.<br /><br /><a
-              href="https://github.com/MohaiminulEraj/careforyou"
-              target="_blank"
-              >Project Link</a
-            >
-          </p>
-        </div>
-      </div>
-
-      <div class="project right-img">
-        <div class="project-img">
-          <img src="img/proj-1.png" alt="Database project" />
-        </div>
-        <div class="project-info">
-          <h3>ENROLLMENT TRENDS IUB</h3>
-          <h5><b>Technology Used: </b>Html, CSS, Bootstrap, PHP, MySQL</h5>
-          <p>
-            Designed a Database along with a functioning webpage where the user
-            can view, compare and generate graphs of the semester wise admission
-            results of the students.<br /><br /><a
-              href="https://github.com/MohaiminulEraj/Enrollment-Trends-IUB"
-              target="_blank"
-              >Project Link</a
-            >
-          </p>
-        </div>
-      </div>
-
-      <div class="project left-img">
-        <div class="project-img">
-          <img src="img/proj-2.jpg" alt="Fire Fighting Robot project" />
-        </div>
-        <div class="project-info">
-          <h3>FIRE FIGHTING ROBOT USING ARDUINO</h3>
-          <h5>
-            <b>Technology Used: </b>Arduino, Arduino IDE, RC Kits, Flame, Sonar
-            Sensor, Servo Motor
-          </h5>
-          <p>
-            The robot continuously monitors variation of the surrounding area
-            using flame sensors. Robotic vehicle moves through the disaster area
-            as per the instructions from Arduino/MCU. Whenever the temperature
-            exceeds a limit value and Arduino/MCU identifies that there is
-            presence of fire then it operates the water pump.<br /><br /><a
-              href="https://github.com/MohaiminulEraj/Fire-Fighting-Robot-Using-Arduino/blob/master/FireFightingBot.ino"
-              target="_blank"
-              >View Source Code</a
-            >
-          </p>
-        </div>
-      </div>
-
-      <div class="project left-img">
-        <div class="project-img">
-          <img src="img/proj-3.jpg" alt="Java based project" />
-        </div>
-        <div class="project-info">
-          <h3>PASSPORT ISSUING APPLICATION IN JAVA</h3>
-          <h5><b>Technology Used: </b>Java, JavaFXML</h5>
-          <p>
-            Designed and executed a GUI based passport issuing management
-            desktop application where citizen/applicants can be able to apply,
-            Re-issue for New or Old Passport, Employees can approve/disapprove
-            the application, they can also maintain bill & orders through the
-            system. Admin can add/remove employees, distribute salary, generate
-            chart through the system and much more...<br /><br /><a
-              href="https://github.com/MohaiminulEraj/PassportIssue"
-              target="_blank"
-              >Project Link</a
-            >
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="contact-area">
-      <h2 style="text-align: center">Contact</h2>
-      <div class="message-content">
-        <form
-          action="mailto:eraj471@gmail.com"
-          method="POST"
-          enctype="text/plain"
+          alt="Mohaiminul Islam Eraj"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         >
-          <label for="full_name">Full Name: </label> <br /><input
-            type="text"
-            placeholder="Full Name*"
-            id="full_name"
-            required
-          /><br />
-          <label for="email">Email: </label> <br /><input
-            type="email"
-            placeholder="Email*"
-            id="email"
-            required
-          /><br />
-          <label>Gender: </label><br />
-          <input type="radio" id="male" name="gender" />
-          <label for="male">Male</label>
-          <input type="radio" name="gender" id="female" />
-          <label for="female">Female</label>
-          <input type="radio" name="gender" id="other" />
-          <label for="other">Other</label> <br /><br />
-          <label for="file">Attach files:</label>
-          <input type="file" id="file" multiple /><br /><br />
-          <label for="message">Message:</label><br /><textarea
-            rows="4"
-            cols="50"
-            id="message"
-            placeholder="Message*"
-          ></textarea
-          ><br /><br />
-          <h3>I typically reply to all email inquiries within 24 hours.</h3>
-          <input class="button_reset" type="reset" value="Reset" />&emsp;
-          <input class="button_submit" type="submit" value="Submit" />
-        </form>
-      </div>
-      <div class="contact-info">
-        <div>
-          <a href="https://www.facebook.com/Eraj.K4linux" target="_blank"
-            ><i class="fa-brands fa-facebook"></i
-          ></a>
-          <a href="https://twitter.com/MohaiminulEraj" target="_blank"
-            ><i class="fa-brands fa-twitter"></i
-          ></a>
-          <a href="https://www.github.com/MohaiminulEraj" target="_blank"
-            ><i class="fa-brands fa-github"></i
-          ></a>
-        </div>
-        <p>
-          <i class="fa-solid fa-envelope fa-sm"></i> mohaiminuleraj@gmail.com
-        </p>
-        <p><i class="fa-solid fa-location-dot"></i> Sector-7, Uttara, Dhaka</p>
-
-        <div class="myMap">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7297.04745194168!2d90.39241872418712!3d23.87104049922057!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c43cc3768dc1%3A0x8ab583ff502586f3!2sSector%207%2C%20Dhaka%201230!5e0!3m2!1sen!2sbd!4v1582449487171!5m2!1sen!2sbd"
-            width="550"
-            height="450"
-            frameborder="0"
-            allowfullscreen=""
-          ></iframe>
+        <div style="display:none; width:100%; aspect-ratio:1; background:var(--bg-card); border-radius:8px; align-items:center; justify-content:center; font-size:72px; border:1px solid var(--border);">👨‍💻</div>
+        <div class="profile-border"></div>
+        <div class="profile-accent"></div>
+        <div class="profile-dot"></div>
+        <div class="availability-badge">
+          <div class="badge-dot"></div>
+          <div class="badge-text"><strong>Open</strong> to opportunities</div>
         </div>
       </div>
-    </section>
-    <footer>
-      <h5>&copy; Mohaiminul Eraj, <span id="current-year"></span></h5>
-      <script>
-        // Update copyright year
-        document.getElementById("current-year").textContent =
-          new Date().getFullYear();
+    </div>
+  </section>
 
-        // Simple scroll animation - only add effects, never hide content
-        document.addEventListener("DOMContentLoaded", function () {
-          if ("IntersectionObserver" in window) {
-            const observer = new IntersectionObserver(
-              (entries) => {
-                entries.forEach((entry) => {
-                  if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                  }
-                });
-              },
-              { threshold: 0.1 }
-            );
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <div class="section-label">Technical Skills</div>
+      <h2 class="section-title">What I Build With</h2>
+    </div>
 
-            // Observe sections for optional animation effects
-            document.querySelectorAll(".animate-on-scroll").forEach((item) => {
-              observer.observe(item);
-            });
-          }
-        });
-      </script>
-    </footer>
-    <script src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
-  </body>
+    <div class="skills-grid">
+      <div class="skill-card reveal" style="--card-accent: #00d4ff;">
+        <span class="skill-icon">⚙️</span>
+        <div class="skill-category">Backend</div>
+        <div class="skill-items">Node.js · NestJS · TypeScript<br>Express.js · REST APIs · GraphQL<br>Microservices · Kafka · RabbitMQ</div>
+      </div>
+      <div class="skill-card reveal" style="--card-accent: #7c6af5;">
+        <span class="skill-icon">⚛️</span>
+        <div class="skill-category">Frontend</div>
+        <div class="skill-items">React.js · Next.js · SvelteKit<br>TailwindCSS · Redux · Zustand<br>HTML5 · CSS3 · WebSockets</div>
+      </div>
+      <div class="skill-card reveal" style="--card-accent: #00ff88;">
+        <span class="skill-icon">🗄️</span>
+        <div class="skill-category">Databases</div>
+        <div class="skill-items">PostgreSQL · MySQL · MongoDB<br>Redis · InfluxDB · Sequelize<br>Schema design · Query optimization</div>
+      </div>
+      <div class="skill-card reveal" style="--card-accent: #f97316;">
+        <span class="skill-icon">☁️</span>
+        <div class="skill-category">Cloud & DevOps</div>
+        <div class="skill-items">AWS · Docker · Kubernetes (K3S)<br>GitHub Actions CI/CD · Nginx<br>Pulumi IaC · PM2 · VPC Peering</div>
+      </div>
+      <div class="skill-card reveal" style="--card-accent: #ec4899;">
+        <span class="skill-icon">🔗</span>
+        <div class="skill-category">Blockchain</div>
+        <div class="skill-items">Ethereum · Solidity · Hardhat<br>Hyperledger Fabric &amp; Besu<br>IPFS · Smart Contracts · EVM</div>
+      </div>
+      <div class="skill-card reveal" style="--card-accent: #fbbf24;">
+        <span class="skill-icon">🧪</span>
+        <div class="skill-category">Testing & Tools</div>
+        <div class="skill-items">Jest · Mocha · TDD<br>Git · Linux · Agile / SDLC<br>Arduino · Raspberry Pi · ESP8266</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-header reveal">
+      <div class="section-label">Work History</div>
+      <h2 class="section-title">Where I've Worked</h2>
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Digiground Australia</span>
+          <span class="timeline-period">Sep 2025 – Present</span>
+        </div>
+        <div class="timeline-role">Full Stack Engineer · Remote</div>
+        <ul class="timeline-items">
+          <li>Developed responsive UI components using React and Next.js, improving application usability</li>
+          <li>Optimized page load performance through efficient rendering and data fetching strategies</li>
+          <li>Designed backend APIs and async workflows supporting real-world product use cases</li>
+          <li>Worked cross-functionally with product, design, and support in a remote-first environment</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Neoscoder (Akij Venture)</span>
+          <span class="timeline-period">Mar 2025 – Aug 2025</span>
+        </div>
+        <div class="timeline-role">Senior Software Engineer (Backend Focused)</div>
+        <ul class="timeline-items">
+          <li>Owned backend services end-to-end: design, deployment, and production monitoring</li>
+          <li>Optimized database queries and indexing strategies for high-load API performance</li>
+          <li>Implemented Redis caching and background processing to improve throughput</li>
+          <li>Improved CI/CD pipelines and deployment workflows on AWS</li>
+          <li>Mentored engineers and conducted architecture discussions on scalability and reliability</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Anchorblock Technology</span>
+          <span class="timeline-period">Aug 2022 – Feb 2025</span>
+        </div>
+        <div class="timeline-role">Software Engineer · Full Stack &amp; Blockchain</div>
+        <ul class="timeline-items">
+          <li>Built and maintained the AnchorBooks SaaS accounting platform (anchorbooks.ai) with OCR, recurring billing, and PDF generation</li>
+          <li>Implemented RBAC access control, JWT authentication, and data security protocols across services</li>
+          <li>Deployed backend infrastructure with Docker on AWS using GitHub Actions CI/CD</li>
+          <li>Built an LMS platform with AI chat integration, video processing (ffmpeg), and RabbitMQ queuing</li>
+          <li>Designed and deployed a <strong style="color:var(--text)">CBDC smart contract</strong> (Central Bank Digital Currency / CEX protocol) with on-chain data retrieval subgraphs</li>
+          <li>Built a <strong style="color:var(--text)">DEX Protocol</strong> enabling token trading, order creation, cancellation and filling on-chain</li>
+          <li>Developed Blockchain Bridges for seamless token transfers between distinct blockchain networks</li>
+          <li>Led frontend &amp; backend for a <strong style="color:var(--text)">Hyperledger Grid supply chain</strong> prototype using Fabric and Besu</li>
+          <li>Implemented private multi-node blockchain networks with smart contract deployment pipelines</li>
+          <li>Built subgraph data pipelines with GraphQL and Docker for efficient on-chain data indexing</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Obboy Labs</span>
+          <span class="timeline-period">Jan 2022 – Jul 2022</span>
+        </div>
+        <div class="timeline-role">Junior Blockchain Engineer</div>
+        <ul class="timeline-items">
+          <li>Deployed multi-signature crypto wallet (MontyPy) on Polygon Mainnet in Solidity</li>
+          <li>Built and launched Indicium NFT Marketplace end-to-end; integrated MetaMask, Coinbase &amp; WalletConnect</li>
+          <li>Wrote smart contracts across ERC20, ERC721, and ERC1155 standards; deployed a contract on Solana</li>
+          <li>Indexed and queried blockchain data using GraphQL subgraph API, persisting results to PostgreSQL via Docker</li>
+          <li>Researched DeFi lending protocols (Uniswap, Aave) and financial derivatives including power perpetual models</li>
+          <li>Built an Ethereum Faucet site and an Etherscan-style block explorer using Ethers.js</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-meta">
+          <span class="timeline-company">Techdojo Limited</span>
+          <span class="timeline-period">Oct 2020 – Nov 2021</span>
+        </div>
+        <div class="timeline-role">Junior Software Engineer · Remote</div>
+        <ul class="timeline-items">
+          <li>Built web applications using the MERN stack with Next.js SSR optimization</li>
+          <li>Developed a POS desktop application with Electron.js</li>
+          <li>Contributed to React Native mobile application features</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-header reveal">
+      <div class="section-label">Selected Work</div>
+      <h2 class="section-title">Projects I've Built</h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- FULL STACK DIVIDER -->
+      <div class="projects-divider reveal">
+        <span class="projects-divider-label web">⚙ Full Stack &amp; Backend</span>
+        <div class="projects-divider-line"></div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">📊</span>
+          <div class="project-links">
+            <a href="https://anchorbooks.ai" target="_blank" title="Live Site">↗</a>
+          </div>
+        </div>
+        <div class="project-title">AnchorBooks — Accounting SaaS</div>
+        <div class="project-desc">
+          Multi-tenant bookkeeping platform handling invoices, bills, recurring billing, financial reports,
+          and PDF generation. Implemented OCR via Tesseract.js for automated document parsing and
+          integrated open API gateways for invoice/customer management.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">NestJS</span><span class="stack-tag">React</span>
+          <span class="stack-tag">PostgreSQL</span><span class="stack-tag">Redis</span>
+          <span class="stack-tag">AWS</span><span class="stack-tag">Docker</span>
+          <span class="stack-tag">Tesseract.js</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">🎓</span>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">LMS with AI Integration</div>
+        <div class="project-desc">
+          Video-based learning management subscription platform with integrated AI chat assistant.
+          Handled video processing pipelines with ffmpeg, async job queuing via RabbitMQ,
+          and scalable deployment on AWS with Nginx reverse proxy.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">NestJS</span><span class="stack-tag">React</span>
+          <span class="stack-tag">PostgreSQL</span><span class="stack-tag">MongoDB</span>
+          <span class="stack-tag">RabbitMQ</span><span class="stack-tag">ffmpeg</span>
+          <span class="stack-tag">AWS</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">👥</span>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">HRMS — HR Management System</div>
+        <div class="project-desc">
+          Enterprise HR platform with split leave management, promotion and increment request workflows,
+          payroll management, and RESTful API architecture. Enforced strict data security
+          and role-based access control throughout.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">NestJS</span><span class="stack-tag">React</span>
+          <span class="stack-tag">MySQL</span><span class="stack-tag">Redux</span>
+          <span class="stack-tag">Docker</span><span class="stack-tag">AWS</span>
+          <span class="stack-tag">CI/CD</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">🖼️</span>
+          <div class="project-links">
+            <a href="https://github.com/MohaiminulEraj" target="_blank" title="GitHub">⌥</a>
+          </div>
+        </div>
+        <div class="project-title">Indicium — NFT Marketplace</div>
+        <div class="project-desc">
+          Full-stack NFT marketplace enabling users to discover, mint, and trade digital collectibles.
+          Integrated MetaMask, Coinbase, and WalletConnect. Built smart contracts in Solidity,
+          deployed on Polygon Mainnet, with GraphQL blockchain data querying.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Solidity</span><span class="stack-tag">MERN Stack</span>
+          <span class="stack-tag">GraphQL</span><span class="stack-tag">PostgreSQL</span>
+          <span class="stack-tag">Ethers.js</span><span class="stack-tag">Truffle</span>
+          <span class="stack-tag">Polygon</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">🏥</span>
+          <div class="project-links">
+            <a href="https://github.com/MohaiminulEraj/careforyou" target="_blank" title="GitHub">⌥</a>
+          </div>
+        </div>
+        <div class="project-title">CareForYou — Healthcare Platform</div>
+        <div class="project-desc">
+          Healthcare platform enabling real-time patient-doctor interaction, expert content verification
+          to prevent medical misinformation, and specialist consultation booking. Built with Socket.io
+          for live chat features.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Node.js</span><span class="stack-tag">React</span>
+          <span class="stack-tag">Next.js</span><span class="stack-tag">MongoDB</span>
+          <span class="stack-tag">Socket.io</span><span class="stack-tag">Redux</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-icon">📱</span>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">bKash Remote Debug Tool</div>
+        <div class="project-desc">
+          Desktop application built with Electron.js to remotely debug the Android bKash fintech app
+          on customer devices — reducing field support time and enabling engineers to diagnose
+          production issues without physical device access.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Electron.js</span><span class="stack-tag">Node.js</span>
+          <span class="stack-tag">HTML</span><span class="stack-tag">CSS</span>
+          <span class="stack-tag">Android Debug Bridge</span>
+        </div>
+      </div>
+
+      <!-- BLOCKCHAIN DIVIDER -->
+      <div class="projects-divider reveal">
+        <span class="projects-divider-label chain">⛓ Blockchain &amp; Web3</span>
+        <div class="projects-divider-line"></div>
+      </div>
+
+      <div class="project-card blockchain">
+        <div class="project-header">
+          <span class="project-icon">🏦</span>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">CBDC — Central Bank Digital Currency</div>
+        <div class="project-desc">
+          Wrote and deployed smart contract implementation for a Central Bank Digital Currency protocol
+          (CEX protocol). Implemented on-chain data retrieval subgraphs for efficient state querying,
+          enabling auditable, transparent monetary operations on a permissioned chain.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Solidity</span><span class="stack-tag">Hardhat</span>
+          <span class="stack-tag">GraphQL Subgraph</span><span class="stack-tag">Ethereum</span>
+          <span class="stack-tag">Docker</span><span class="stack-tag">Hyperledger</span>
+        </div>
+      </div>
+
+      <div class="project-card blockchain">
+        <div class="project-header">
+          <span class="project-icon">🔄</span>
+          <div class="project-links">
+            <a href="https://github.com/MohaiminulEraj" target="_blank" title="GitHub">⌥</a>
+          </div>
+        </div>
+        <div class="project-title">DEX Protocol — Decentralized Exchange</div>
+        <div class="project-desc">
+          On-chain decentralized token exchange where users can trade ERC-20 tokens, create limit orders,
+          cancel and fill orders — all enforced by smart contracts. Includes a React trading dashboard
+          with real-time WebSocket order data, PnL tracking, and terminal CLI responsiveness.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Solidity</span><span class="stack-tag">React</span>
+          <span class="stack-tag">Ethers.js</span><span class="stack-tag">WebSockets</span>
+          <span class="stack-tag">Hardhat</span><span class="stack-tag">ERC-20</span>
+        </div>
+      </div>
+
+      <div class="project-card blockchain">
+        <div class="project-header">
+          <span class="project-icon">🚚</span>
+          <div class="project-links"></div>
+        </div>
+        <div class="project-title">SCM Prototype — Blockchain Supply Chain</div>
+        <div class="project-desc">
+          Multi-platform blockchain supply chain management prototype built across Hyperledger Fabric,
+          Hyperledger Besu, and Hyperledger Grid. Implemented private multi-node network architecture,
+          chaincode deployment, and a full-stack management UI for tracking goods end-to-end.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Hyperledger Fabric</span><span class="stack-tag">Hyperledger Besu</span>
+          <span class="stack-tag">Hyperledger Grid</span><span class="stack-tag">Node.js</span>
+          <span class="stack-tag">React</span><span class="stack-tag">Docker</span>
+        </div>
+      </div>
+
+      <div class="project-card blockchain">
+        <div class="project-header">
+          <span class="project-icon">🔐</span>
+          <div class="project-links">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-family:var(--mono);font-size:10px;color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.25);padding:3px 8px;border-radius:3px;letter-spacing:0.06em;">POLYGON MAINNET ✓</span>
+            </div>
+          </div>
+        </div>
+        <div class="project-title">MontyPy — MultiSig Shared Wallet</div>
+        <div class="project-desc">
+          A shared on-chain treasury wallet built on an <strong style="color:var(--text)">M-of-N signature scheme</strong>
+          — N owners are registered at deploy time, and any inbound transaction requires at least M of them to
+          approve before the funds move. Any owner can <em>propose</em> a transaction; the contract stores it
+          in a pending queue on-chain. Co-owners then independently <strong style="color:var(--text)">sign via MetaMask</strong>,
+          and once the approval threshold is met the contract auto-executes — no trusted third party,
+          no single point of failure. Eliminates the risk of a single compromised key draining the wallet,
+          making it ideal for team treasuries, DAOs, and joint crypto payment flows.
+          Deployed live to <strong style="color:#a78bfa">Polygon Mainnet</strong> for production-grade,
+          low-fee EVM transactions.
+        </div>
+        <div class="project-stack">
+          <span class="stack-tag">Solidity</span><span class="stack-tag">Polygon Mainnet</span>
+          <span class="stack-tag">MetaMask</span><span class="stack-tag">Hardhat</span>
+          <span class="stack-tag">Ethers.js</span><span class="stack-tag">React</span>
+          <span class="stack-tag">EVM</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-header">
+      <div class="section-label">Contact</div>
+      <h2 class="contact-tagline reveal">Let's build something remarkable.</h2>
+      <p class="contact-sub reveal">
+        Open to senior backend, full-stack, and remote engineering roles globally.
+        Always happy to discuss interesting technical challenges.
+      </p>
+    </div>
+
+    <a href="mailto:eraj471@gmail.com" class="contact-email reveal">
+      <span>✉</span> eraj471@gmail.com
+    </a>
+
+    <div class="social-links reveal">
+      <a href="https://github.com/MohaiminulEraj" target="_blank" class="social-link">
+        <span>⌥</span> GitHub
+      </a>
+      <a href="https://linkedin.com/in/MohaiminulEraj" target="_blank" class="social-link">
+        <span>⊡</span> LinkedIn
+      </a>
+      <a href="https://leetcode.com/MohaiminulEraj" target="_blank" class="social-link">
+        <span>⟨⟩</span> LeetCode
+      </a>
+    </div>
+  </section>
+
+  </div><!-- /z-index wrapper -->
+
+</main>
+
+<footer>
+  <p>Designed &amp; built by <span>Mohaiminul Islam Eraj</span> · Dhaka, Bangladesh · 2025</p>
+</footer>
+
+<!-- THREE.JS 3D SCENE -->
+<script>
+(function() {
+  const canvas = document.getElementById('canvas-3d');
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    alpha: true,
+    antialias: true
+  });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 30);
+
+  // Particles
+  const count = 600;
+  const positions = new Float32Array(count * 3);
+  const colors = new Float32Array(count * 3);
+  const sizes = new Float32Array(count);
+
+  const colorPalette = [
+    new THREE.Color('#00d4ff'),
+    new THREE.Color('#7c6af5'),
+    new THREE.Color('#00ff88'),
+    new THREE.Color('#ffffff'),
+  ];
+
+  for (let i = 0; i < count; i++) {
+    positions[i * 3]     = (Math.random() - 0.5) * 80;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 60;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+
+    const col = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+    colors[i * 3]     = col.r;
+    colors[i * 3 + 1] = col.g;
+    colors[i * 3 + 2] = col.b;
+
+    sizes[i] = Math.random() * 2.5 + 0.5;
+  }
+
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  pGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
+  const pMat = new THREE.PointsMaterial({
+    size: 0.15,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.55,
+    sizeAttenuation: true,
+  });
+
+  const particles = new THREE.Points(pGeo, pMat);
+  scene.add(particles);
+
+  // Floating wireframe geometries
+  const wireframeMat = new THREE.MeshBasicMaterial({
+    color: 0x00d4ff,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.08,
+  });
+
+  const shapes = [];
+
+  function addShape(geo, x, y, z, rx, ry) {
+    const mesh = new THREE.Mesh(geo, wireframeMat.clone());
+    mesh.position.set(x, y, z);
+    mesh.rotation.set(rx, ry, 0);
+    mesh.userData = {
+      rx: (Math.random() - 0.5) * 0.003,
+      ry: (Math.random() - 0.5) * 0.004,
+      floatSpeed: Math.random() * 0.003 + 0.001,
+      floatOffset: Math.random() * Math.PI * 2,
+      originY: y,
+    };
+    scene.add(mesh);
+    shapes.push(mesh);
+    return mesh;
+  }
+
+  addShape(new THREE.IcosahedronGeometry(4, 1), -18, 8, -5, 0.3, 0.5);
+  addShape(new THREE.OctahedronGeometry(3.5, 0), 18, -6, -8, 0.2, 0.8);
+  addShape(new THREE.TorusGeometry(4, 0.5, 8, 24), 5, 14, -12, 0.6, 0.3);
+  addShape(new THREE.TetrahedronGeometry(3, 0), -14, -10, -6, 0.1, 0.4);
+  addShape(new THREE.BoxGeometry(4, 4, 4), 22, 12, -10, 0.4, 0.6);
+
+  // Connection lines
+  const lineMat = new THREE.LineBasicMaterial({
+    color: 0x00d4ff,
+    transparent: true,
+    opacity: 0.04,
+  });
+
+  function addLines(count, spread) {
+    for (let i = 0; i < count; i++) {
+      const points = [];
+      const sx = (Math.random() - 0.5) * spread;
+      const sy = (Math.random() - 0.5) * spread;
+      const sz = (Math.random() - 0.5) * 20;
+      const ex = sx + (Math.random() - 0.5) * 20;
+      const ey = sy + (Math.random() - 0.5) * 20;
+      const ez = sz + (Math.random() - 0.5) * 5;
+      points.push(new THREE.Vector3(sx, sy, sz));
+      points.push(new THREE.Vector3(ex, ey, ez));
+      const geo = new THREE.BufferGeometry().setFromPoints(points);
+      scene.add(new THREE.Line(geo, lineMat));
+    }
+  }
+
+  addLines(40, 60);
+
+  // Mouse parallax
+  let mouseX = 0, mouseY = 0;
+  let targetX = 0, targetY = 0;
+
+  document.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = -(e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  // Scroll
+  let scrollY = 0;
+  window.addEventListener('scroll', () => { scrollY = window.scrollY; });
+
+  // Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Animate
+  let time = 0;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.005;
+
+    // Smooth mouse follow
+    targetX += (mouseX - targetX) * 0.04;
+    targetY += (mouseY - targetY) * 0.04;
+
+    camera.position.x = targetX * 2;
+    camera.position.y = targetY * 1.5 - scrollY * 0.005;
+
+    // Rotate particles slowly
+    particles.rotation.y = time * 0.05;
+    particles.rotation.x = time * 0.02;
+
+    // Float + rotate shapes
+    shapes.forEach(s => {
+      s.rotation.x += s.userData.rx;
+      s.rotation.y += s.userData.ry;
+      s.position.y = s.userData.originY + Math.sin(time * s.userData.floatSpeed * 200 + s.userData.floatOffset) * 1.5;
+    });
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+})();
+</script>
+
+<!-- SCROLL ANIMATIONS -->
+<script>
+(function() {
+  // Intersection Observer for reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Timeline items
+  const tlObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateX(0)';
+          entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        }, 100);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.timeline-item').forEach(el => tlObserver.observe(el));
+
+  // Project cards stagger
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.style.transition = 'opacity 0.6s ease, transform 0.6s ease, border-color 0.3s';
+        }, 80);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.project-card').forEach(el => {
+    el.style.transform = 'translateY(30px)';
+    cardObserver.observe(el);
+  });
+
+  // Skill cards stagger
+  document.querySelectorAll('.skill-card').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 80}ms`;
+  });
+
+  // Hero animations
+  function animateHero() {
+    const items = [
+      '.hero-eyebrow',
+      '.hero-name',
+      '.hero-role',
+      '.hero-desc',
+      '.hero-actions',
+      '.hero-meta',
+      '.scroll-indicator'
+    ];
+
+    items.forEach((sel, i) => {
+      const el = document.querySelector(sel);
+      if (!el) return;
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        el.style.transform = 'translateY(0)';
+        el.style.opacity = '1';
+      }, 300 + i * 120);
+    });
+  }
+
+  // Set initial state for hero items
+  ['.hero-name', '.hero-role', '.hero-desc', '.hero-actions', '.hero-meta'].forEach(sel => {
+    const el = document.querySelector(sel);
+    if (el) el.style.transform = 'translateY(20px)';
+  });
+
+  window.addEventListener('load', animateHero);
+
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) {
+      nav.style.background = 'rgba(8, 12, 16, 0.95)';
+    } else {
+      nav.style.background = 'rgba(8, 12, 16, 0.8)';
+    }
+  });
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+
+</body>
 </html>
