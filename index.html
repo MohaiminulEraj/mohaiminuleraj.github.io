@@ -103,6 +103,8 @@
 
   .nav-links a:hover { color: var(--accent); }
 
+  .nav-links a.current { color: var(--accent); }
+
   .nav-cta {
     font-family: var(--mono);
     font-size: 12px;
@@ -790,7 +792,7 @@
     letter-spacing: 0.05em;
   }
 
-  footer span { color: var(--accent); }
+  footer .footer-name { color: var(--accent); }
 
   /* NOISE OVERLAY */
   body::before {
@@ -927,8 +929,156 @@
     .profile-frame { max-width: 280px; }
     .availability-badge { display: none; }
 
-    .nav-links { display: none; }
-    .hamburger { display: flex; }
+    /* Hamburger button */
+    .hamburger {
+      display: flex;
+      position: relative;
+      z-index: 101;
+    }
+
+    .hamburger span {
+      transform-origin: center;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .hamburger.active span {
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(0, 212, 255, 0.55);
+    }
+
+    .hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+
+    .hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile nav overlay */
+    .nav-links {
+      counter-reset: navcount;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 1.25rem;
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      padding: 2.25rem 8% calc(2.5rem + env(safe-area-inset-bottom, 0px));
+      margin: 0;
+      background:
+        radial-gradient(circle at 88% 8%, rgba(0, 212, 255, 0.14), transparent 42%),
+        radial-gradient(circle at 6% 94%, rgba(124, 106, 245, 0.12), transparent 48%),
+        rgba(8, 12, 16, 0.74);
+      backdrop-filter: blur(28px) saturate(160%);
+      -webkit-backdrop-filter: blur(28px) saturate(160%);
+      border-top: 1px solid var(--border);
+      z-index: 99;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      box-sizing: border-box;
+      perspective: 1200px;
+      transform: translateY(-12px);
+      transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+    }
+
+    .nav-links.active {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav-links li {
+      width: 100%;
+      counter-increment: navcount;
+      flex-shrink: 0;
+      opacity: 0;
+      transform: rotateX(-65deg) translateY(18px) translateZ(10px);
+      transform-origin: 50% 0%;
+      transition: opacity 0.5s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, opacity;
+    }
+
+    .nav-links.active li {
+      opacity: 1;
+      transform: rotateX(0deg) translateY(0) translateZ(0);
+    }
+
+    .nav-links.active li:nth-child(1) { transition-delay: 0.08s; }
+    .nav-links.active li:nth-child(2) { transition-delay: 0.14s; }
+    .nav-links.active li:nth-child(3) { transition-delay: 0.20s; }
+    .nav-links.active li:nth-child(4) { transition-delay: 0.26s; }
+    .nav-links.active li:nth-child(5) { transition-delay: 0.32s; }
+
+    .nav-links li:not(:last-child) {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.25rem;
+    }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: clamp(22px, 6vw, 30px);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      text-transform: none;
+      color: var(--text);
+      line-height: 1.3;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    .nav-links a::before {
+      content: '0' counter(navcount);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      text-shadow: 0 0 14px rgba(0, 212, 255, 0.65);
+      flex-shrink: 0;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:active {
+      color: var(--accent);
+      transform: translateX(8px);
+    }
+
+    .nav-links li:last-child {
+      margin-top: 0.5rem;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    .nav-links .nav-cta {
+      font-size: 13px !important;
+      padding: 14px 32px !important;
+      text-transform: uppercase !important;
+    }
+
+    .nav-links .nav-cta::before { content: none !important; }
+
+    .nav-links .nav-cta:hover,
+    .nav-links .nav-cta:active {
+      transform: none;
+    }
+
+    body.nav-open { overflow: hidden; }
 
     .hero-meta { gap: 1.5rem; flex-wrap: wrap; }
     .projects-grid { grid-template-columns: 1fr; }
@@ -957,14 +1107,14 @@
   <div class="nav-logo">
     <span>~/</span>eraj
   </div>
-  <ul class="nav-links">
+  <ul class="nav-links" id="primary-navigation">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#contact" class="nav-cta">Contact</a></li>
   </ul>
-  <button class="hamburger" aria-label="Menu">
+  <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1476,7 +1626,7 @@
 </main>
 
 <footer>
-  <p>Designed &amp; built by <span>Mohaiminul Islam Eraj</span> · Dhaka, Bangladesh · 2026</p>
+  <p>&copy; <span id="copyright-year">2026</span> <span class="footer-name">S. M. Mohaiminul Islam</span> · Dhaka, Bangladesh</p>
 </footer>
 
 <!-- THREE.JS 3D SCENE -->
@@ -1594,6 +1744,26 @@
 
   addLines(40, 60);
 
+  // React to mobile menu open/close — boosts the scene into a closer,
+  // livelier "3D view" that's visible through the translucent menu panel
+  const rotState = { mult: 1 };
+
+  function reactToMenu(isOpen) {
+    const duration = isOpen ? 1.1 : 0.8;
+    const ease = isOpen ? 'power3.out' : 'power2.inOut';
+
+    gsap.to(camera.position, { z: isOpen ? 22 : 30, duration, ease });
+    gsap.to(pMat, { opacity: isOpen ? 0.9 : 0.55, duration, ease });
+    gsap.to(lineMat, { opacity: isOpen ? 0.16 : 0.04, duration, ease });
+    gsap.to(rotState, { mult: isOpen ? 3 : 1, duration, ease });
+
+    shapes.forEach(s => {
+      gsap.to(s.material, { opacity: isOpen ? 0.3 : 0.08, duration, ease });
+    });
+  }
+
+  window.__portfolioMenuReact = reactToMenu;
+
   // Mouse parallax
   let mouseX = 0, mouseY = 0;
   let targetX = 0, targetY = 0;
@@ -1629,13 +1799,13 @@
     camera.position.y = targetY * 1.5 - scrollY * 0.005;
 
     // Rotate particles slowly
-    particles.rotation.y = time * 0.05;
-    particles.rotation.x = time * 0.02;
+    particles.rotation.y = time * 0.05 * rotState.mult;
+    particles.rotation.x = time * 0.02 * rotState.mult;
 
     // Float + rotate shapes
     shapes.forEach(s => {
-      s.rotation.x += s.userData.rx;
-      s.rotation.y += s.userData.ry;
+      s.rotation.x += s.userData.rx * rotState.mult;
+      s.rotation.y += s.userData.ry * rotState.mult;
       s.position.y = s.userData.originY + Math.sin(time * s.userData.floatSpeed * 200 + s.userData.floatOffset) * 1.5;
     });
 
@@ -1749,6 +1919,87 @@
       }
     });
   });
+
+  // Mobile hamburger menu
+  const hamburger = document.querySelector('.hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  // Size the mobile menu panel using the *measured* viewport rather than
+  // vh/dvh units, which can report incorrect values inside embedded
+  // preview frames and cause the panel to collapse to a tiny height.
+  function setMobileMenuHeight() {
+    const navHeight = nav.offsetHeight || 70;
+    navLinks.style.height = (window.innerHeight - navHeight) + 'px';
+  }
+
+  function closeMobileMenu() {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('active');
+    document.body.classList.remove('nav-open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    navLinks.style.height = '';
+    if (typeof window.__portfolioMenuReact === 'function') {
+      window.__portfolioMenuReact(false);
+    }
+  }
+
+  function toggleMobileMenu() {
+    const isOpen = navLinks.classList.toggle('active');
+    hamburger.classList.toggle('active', isOpen);
+    document.body.classList.toggle('nav-open', isOpen);
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+    if (isOpen) {
+      setMobileMenuHeight();
+    } else {
+      navLinks.style.height = '';
+    }
+    if (typeof window.__portfolioMenuReact === 'function') {
+      window.__portfolioMenuReact(isOpen);
+    }
+  }
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', toggleMobileMenu);
+
+    // Close menu when a nav link is tapped
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+
+    // Close menu on resize back to desktop width; recompute height
+    // if it's open and the viewport changes (e.g. orientation change)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        closeMobileMenu();
+      } else if (navLinks.classList.contains('active')) {
+        setMobileMenuHeight();
+      }
+    });
+  }
+
+  // Highlight the nav link matching the section currently in view
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+  const trackedSections = document.querySelectorAll('main section[id]');
+
+  if (navAnchors.length && trackedSections.length) {
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const id = '#' + entry.target.id;
+        navAnchors.forEach(a => {
+          a.classList.toggle('current', a.getAttribute('href') === id);
+        });
+      });
+    }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+
+    trackedSections.forEach(s => sectionObserver.observe(s));
+  }
+
+  // Footer copyright year — derived from Date.now()
+  const yearEl = document.getElementById('copyright-year');
+  if (yearEl) {
+    yearEl.textContent = new Date(Date.now()).getFullYear();
+  }
 
 })();
 </script>
