@@ -1,17 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
+<!-- ═══ CORE ═══════════════════════════════════════════════════════════ -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Mohaiminul Islam Eraj — Full Stack Software Engineer with 5+ years experience in Node.js, NestJS, React, PostgreSQL, and AWS.">
-<title>Mohaiminul Islam Eraj — Software Engineer</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<!-- Fonts -->
+<!-- ═══ PRIMARY SEO ══════════════════════════════════════════════════ -->
+<title>Mohaiminul Islam Eraj | Full Stack &amp; Blockchain Engineer | Node.js · NestJS · React · AWS</title>
+<meta name="description" content="Full Stack &amp; Blockchain Engineer with 5+ yrs in Node.js, NestJS, TypeScript, React &amp; PostgreSQL. AWS, microservices &amp; Solidity specialist. Dhaka, Bangladesh — open to global remote roles.">
+<meta name="keywords" content="Full Stack Software Engineer, Senior Software Engineer, Backend Developer, Backend Engineer, Hire Full Stack Developer, Remote Software Engineer for Hire, Node.js Developer, NestJS Developer, TypeScript Developer, React Developer, Next.js Developer, Express.js Developer, PostgreSQL Developer, Database Engineer, Microservices Architect, API Developer, AWS Engineer, DevOps Engineer, Docker Kubernetes, Blockchain Engineer, Blockchain Developer, Solidity Developer, Smart Contract Developer, Ethereum Developer, Web3 Developer, DeFi Developer, NFT Developer, Hyperledger Developer, Remote Developer Bangladesh, Dhaka Software Engineer, Global Remote Engineer, Offshore Software Developer, Mohaiminul Islam Eraj, Mohaiminul Eraj">
+<meta name="classification" content="Technology, Software Development, Blockchain Development, Recruitment">
+<meta name="target-audience" content="Recruiters, Hiring Managers, CTOs, Startups, Technology Companies">
+<meta name="rating" content="general">
+<meta name="author" content="Mohaiminul Islam Eraj">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="theme-color" content="#080c10">
+<meta name="color-scheme" content="dark">
+
+<!-- ═══ CANONICAL ════════════════════════════════════════════════════ -->
+<link rel="canonical" href="https://mohaiminuleraj.github.io/">
+
+<!-- ═══ GEO ══════════════════════════════════════════════════════════ -->
+<meta name="geo.region" content="BD-13">
+<meta name="geo.placename" content="Dhaka, Bangladesh">
+<meta name="language" content="English">
+
+<!-- ═══ OPEN GRAPH (LinkedIn · Facebook · WhatsApp previews) ════════ -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Mohaiminul Islam Eraj | Full Stack &amp; Blockchain Engineer">
+<meta property="og:description" content="Full Stack &amp; Blockchain Engineer — 5+ yrs in Node.js, NestJS, React, PostgreSQL &amp; AWS. Blockchain: Ethereum, Solidity, Hyperledger. Open to global remote.">
+<meta property="og:url" content="https://mohaiminuleraj.github.io/">
+<meta property="og:image" content="https://mohaiminuleraj.github.io/img/Eraj.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Mohaiminul Islam Eraj — Full Stack &amp; Blockchain Engineer">
+<meta property="og:site_name" content="Mohaiminul Islam Eraj — Portfolio">
+<meta property="og:locale" content="en_US">
+<meta property="profile:first_name" content="Mohaiminul Islam">
+<meta property="profile:last_name" content="Eraj">
+<meta property="profile:username" content="MohaiminulEraj">
+
+<!-- ═══ TWITTER / X CARD ════════════════════════════════════════════ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mohaiminul Islam Eraj | Full Stack &amp; Blockchain Engineer">
+<meta name="twitter:description" content="5+ yrs in Node.js, NestJS, React, PostgreSQL &amp; AWS. Blockchain: Ethereum, Solidity, Hyperledger. Open to global remote.">
+<meta name="twitter:image" content="https://mohaiminuleraj.github.io/img/Eraj.jpg">
+<meta name="twitter:image:alt" content="Mohaiminul Islam Eraj — Full Stack &amp; Blockchain Engineer">
+<meta name="twitter:creator" content="@MohaiminulEraj">
+
+<!-- ═══ RESOURCE HINTS ══════════════════════════════════════════════ -->
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;500&display=swap"></noscript>
 
-<!-- Three.js and GSAP -->
+<!-- ═══ SITEMAP ══════════════════════════════════════════════════════ -->
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
+<!-- ═══ THREE.JS AND GSAP ══════════════════════════════════════════ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -699,6 +749,96 @@
     border-radius: 3px;
   }
 
+  /* FAQ */
+  #faq { padding-top: 0; }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 800px;
+  }
+
+  .faq-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .faq-item:hover { border-color: var(--border-hover); }
+
+  .faq-item[open] {
+    border-color: var(--border-hover);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    list-style: none;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--text);
+    transition: color 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .faq-question::-webkit-details-marker,
+  .faq-question::marker {
+    display: none;
+    content: '';
+  }
+
+  .faq-item:hover .faq-question,
+  .faq-item[open] .faq-question { color: var(--accent); }
+
+  .faq-num {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .faq-text { flex: 1; line-height: 1.5; }
+
+  .faq-icon {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--accent);
+    flex-shrink: 0;
+    width: 24px;
+    text-align: center;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .faq-item[open] .faq-icon { transform: rotate(135deg); }
+
+  .faq-answer {
+    padding: 0 1.5rem 1.5rem calc(1.5rem + 12px + 1.25rem);
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.8;
+    animation: faqFadeIn 0.4s ease;
+  }
+
+  @keyframes faqFadeIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .faq-answer { padding-left: 1.5rem; }
+    .faq-question { font-size: 15px; gap: 0.85rem; }
+  }
+
   /* CONTACT */
   #contact {
     text-align: center;
@@ -1091,6 +1231,210 @@
     nav { padding: 0 6%; }
   }
 </style>
+
+<!-- ═══ STRUCTURED DATA (JSON-LD) ══════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ProfilePage",
+      "@id": "https://mohaiminuleraj.github.io/",
+      "name": "Mohaiminul Islam Eraj — Full Stack & Blockchain Engineer Portfolio",
+      "description": "Portfolio of Mohaiminul Islam Eraj, a Full Stack Software Engineer with 5+ years experience in Node.js, NestJS, TypeScript, React, PostgreSQL, AWS, and blockchain technologies including Ethereum, Solidity, and Hyperledger.",
+      "url": "https://mohaiminuleraj.github.io/",
+      "inLanguage": "en",
+      "dateModified": "2025-09-01",
+      "mainEntity": { "@id": "https://mohaiminuleraj.github.io/#person" },
+      "about": { "@id": "https://mohaiminuleraj.github.io/#person" },
+      "significantLink": "https://mohaiminuleraj.github.io/#faq"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://mohaiminuleraj.github.io/#website",
+      "url": "https://mohaiminuleraj.github.io/",
+      "name": "Mohaiminul Islam Eraj — Portfolio",
+      "description": "Portfolio and professional profile of Mohaiminul Islam Eraj, Full Stack & Blockchain Engineer based in Dhaka, Bangladesh.",
+      "inLanguage": "en",
+      "author": { "@id": "https://mohaiminuleraj.github.io/#person" },
+      "hasPart": [
+        { "@type": "SiteNavigationElement", "name": "About", "url": "https://mohaiminuleraj.github.io/#about" },
+        { "@type": "SiteNavigationElement", "name": "Skills", "url": "https://mohaiminuleraj.github.io/#skills" },
+        { "@type": "SiteNavigationElement", "name": "Experience", "url": "https://mohaiminuleraj.github.io/#experience" },
+        { "@type": "SiteNavigationElement", "name": "Projects", "url": "https://mohaiminuleraj.github.io/#projects" },
+        { "@type": "SiteNavigationElement", "name": "FAQ", "url": "https://mohaiminuleraj.github.io/#faq" },
+        { "@type": "SiteNavigationElement", "name": "Contact", "url": "https://mohaiminuleraj.github.io/#contact" }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://mohaiminuleraj.github.io/#person",
+      "name": "Mohaiminul Islam Eraj",
+      "alternateName": "S. M. Mohaiminul Islam",
+      "url": "https://mohaiminuleraj.github.io/",
+      "image": {
+        "@type": "ImageObject",
+        "url": "https://mohaiminuleraj.github.io/img/Eraj.jpg",
+        "contentUrl": "https://mohaiminuleraj.github.io/img/Eraj.jpg",
+        "caption": "Mohaiminul Islam Eraj — Full Stack & Blockchain Engineer"
+      },
+      "jobTitle": "Full Stack Software Engineer",
+      "description": "Full Stack Software Engineer with 5+ years building scalable web applications, high-performance backend systems, and blockchain solutions. Specializing in Node.js, NestJS, TypeScript, React, PostgreSQL, AWS, and Ethereum/Hyperledger blockchain development.",
+      "email": "eraj471@gmail.com",
+      "telephone": "+8801875587929",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Dhaka",
+        "addressRegion": "Dhaka Division",
+        "addressCountry": "BD"
+      },
+      "nationality": {
+        "@type": "Country",
+        "name": "Bangladesh"
+      },
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Independent University, Bangladesh",
+        "sameAs": "https://www.iub.edu.bd/"
+      },
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Digiground",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "AU"
+        }
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Professional Inquiries",
+        "email": "eraj471@gmail.com",
+        "availableLanguage": ["English", "Bengali"]
+      },
+      "hasOccupation": [
+        {
+          "@type": "Occupation",
+          "name": "Full Stack Software Engineer",
+          "description": "Designs and builds scalable backend services and APIs, optimizes databases and caching layers, develops responsive frontend interfaces with React/Next.js, and deploys cloud infrastructure on AWS for remote, cross-functional teams.",
+          "skills": "Node.js, NestJS, TypeScript, Express.js, React.js, Next.js, PostgreSQL, MongoDB, Redis, Docker, AWS, Kafka, RabbitMQ, WebSockets, Microservices, REST APIs, GraphQL",
+          "occupationLocation": [
+            { "@type": "Country", "name": "Bangladesh" },
+            { "@type": "AdministrativeArea", "name": "Remote / Worldwide" }
+          ],
+          "experienceRequirements": {
+            "@type": "OccupationalExperienceRequirements",
+            "monthsOfExperience": 60
+          }
+        },
+        {
+          "@type": "Occupation",
+          "name": "Blockchain Engineer",
+          "description": "Designs, writes, and deploys Solidity smart contracts; builds NFT marketplaces, decentralized exchanges, and multi-signature wallets; implements blockchain bridges; and architects permissioned Hyperledger networks for supply chain use cases.",
+          "skills": "Solidity, Ethereum, Polygon, Hardhat, Truffle, Ethers.js, Hyperledger Fabric, Hyperledger Besu, ERC-20/721/1155, Smart Contract Security, DeFi, NFT Marketplaces, GraphQL Subgraphs",
+          "occupationLocation": [
+            { "@type": "Country", "name": "Bangladesh" },
+            { "@type": "AdministrativeArea", "name": "Remote / Worldwide" }
+          ],
+          "experienceRequirements": {
+            "@type": "OccupationalExperienceRequirements",
+            "monthsOfExperience": 48
+          }
+        }
+      ],
+      "seeks": {
+        "@type": "Demand",
+        "name": "Remote Software Engineering Opportunities",
+        "description": "Open to full-time, contract, and freelance Full Stack, Backend, or Blockchain Engineering roles with global remote teams.",
+        "areaServed": "Worldwide"
+      },
+      "knowsAbout": [
+        "Node.js", "NestJS", "TypeScript", "Express.js",
+        "React.js", "Next.js", "TailwindCSS", "Redux", "Zustand",
+        "PostgreSQL", "MySQL", "MongoDB", "Redis", "InfluxDB",
+        "Docker", "AWS", "Kubernetes", "Nginx", "GitHub Actions",
+        "Kafka", "RabbitMQ", "WebSockets", "Microservices",
+        "Ethereum", "Solidity", "Hardhat", "Hyperledger Fabric",
+        "Hyperledger Besu", "Smart Contracts", "DeFi", "NFT", "Web3",
+        "Blockchain Development", "GraphQL", "REST API Design"
+      ],
+      "hasCredential": [
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "Solidity 30-Day Problem-Solving Challenge",
+          "credentialCategory": "Certificate",
+          "recognizedBy": { "@type": "Organization", "name": "Codedamn" }
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          "name": "AWS Cloud Technical Essentials",
+          "credentialCategory": "Certificate",
+          "recognizedBy": { "@type": "Organization", "name": "Coursera / Amazon Web Services" }
+        }
+      ],
+      "award": "Best Performer Award — Neoscoder (Akij Venture Group), 2025",
+      "sameAs": [
+        "https://github.com/MohaiminulEraj",
+        "https://www.linkedin.com/in/MohaiminulEraj",
+        "https://leetcode.com/MohaiminulEraj"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://mohaiminuleraj.github.io/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Mohaiminul Islam Eraj's primary technology stack?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "His core stack centers on Node.js, NestJS, and TypeScript for backend development, paired with React and Next.js on the frontend. For data, he works primarily with PostgreSQL, MongoDB, and Redis, and deploys on AWS using Docker and CI/CD pipelines via GitHub Actions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is he available for remote work with international teams?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. He is based in Dhaka, Bangladesh (GMT+6) and currently works full-time remote for a team in Australia. He is open to full-time, contract, or freelance Full Stack, Backend, or Blockchain Engineering roles with teams anywhere in the world."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does he have professional blockchain and Web3 experience?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — over three years building production blockchain systems, including Solidity smart contracts on Ethereum and Polygon Mainnet, NFT marketplaces, a decentralized exchange (DEX), multi-signature wallets, and Hyperledger Fabric/Besu supply chain networks."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many years of professional software engineering experience does he have?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "5+ years across four companies, progressing from Junior Software Engineer to Senior Software Engineer (Backend Focused), with hands-on experience in both startup and enterprise environments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What kinds of projects has he built?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Production SaaS platforms including an accounting and bookkeeping system used by real businesses, an AI-integrated learning management system, an HR management system, healthcare platforms with real-time features, and multiple blockchain projects including NFT marketplaces and DeFi-adjacent protocols."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What's the best way to get in touch about an opportunity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The fastest way is email at eraj471@gmail.com, or connect via LinkedIn and GitHub — both linked in the contact section of this site."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
@@ -1124,7 +1468,8 @@
 
   <!-- HERO -->
   <div style="position:relative; z-index:1;">
-  <section id="hero">
+  <section id="hero" aria-label="Introduction">
+    <header>
     <p class="hero-eyebrow">// Full Stack Software Engineer</p>
 
     <h1 class="hero-name">
@@ -1146,6 +1491,7 @@
       <a href="#projects" class="btn-primary">View Projects →</a>
       <a href="mailto:eraj471@gmail.com" class="btn-secondary">Get in Touch</a>
     </div>
+    </header>
 
     <div class="hero-meta">
       <div class="meta-stat">
@@ -1173,7 +1519,7 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" aria-label="About Mohaiminul Islam Eraj">
     <div class="about-content">
       <div class="section-header">
         <div class="section-label">About Me</div>
@@ -1220,7 +1566,7 @@
         <img
           class="profile-img"
           src="img/Eraj.jpg"
-          alt="Mohaiminul Islam Eraj"
+          alt="Mohaiminul Islam Eraj — Full Stack Software Engineer and Blockchain Developer specializing in Node.js, NestJS, React and Solidity"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         >
         <div style="display:none; width:100%; aspect-ratio:1; background:var(--bg-card); border-radius:8px; align-items:center; justify-content:center; font-size:72px; border:1px solid var(--border);">👨‍💻</div>
@@ -1236,7 +1582,7 @@
   </section>
 
   <!-- SKILLS -->
-  <section id="skills">
+  <section id="skills" aria-label="Technical Skills">
     <div class="section-header reveal">
       <div class="section-label">Technical Skills</div>
       <h2 class="section-title">What I Build With</h2>
@@ -1245,39 +1591,39 @@
     <div class="skills-grid">
       <div class="skill-card reveal" style="--card-accent: #00d4ff;">
         <span class="skill-icon">⚙️</span>
-        <div class="skill-category">Backend</div>
+        <h3 class="skill-category">Backend</h3>
         <div class="skill-items">Node.js · NestJS · TypeScript<br>Express.js · REST APIs · GraphQL<br>Microservices · Kafka · RabbitMQ</div>
       </div>
       <div class="skill-card reveal" style="--card-accent: #7c6af5;">
         <span class="skill-icon">⚛️</span>
-        <div class="skill-category">Frontend</div>
+        <h3 class="skill-category">Frontend</h3>
         <div class="skill-items">React.js · Next.js · SvelteKit<br>TailwindCSS · Redux · Zustand<br>HTML5 · CSS3 · WebSockets</div>
       </div>
       <div class="skill-card reveal" style="--card-accent: #00ff88;">
         <span class="skill-icon">🗄️</span>
-        <div class="skill-category">Databases</div>
+        <h3 class="skill-category">Databases</h3>
         <div class="skill-items">PostgreSQL · MySQL · MongoDB<br>Redis · InfluxDB · Sequelize<br>Schema design · Query optimization</div>
       </div>
       <div class="skill-card reveal" style="--card-accent: #f97316;">
         <span class="skill-icon">☁️</span>
-        <div class="skill-category">Cloud & DevOps</div>
+        <h3 class="skill-category">Cloud & DevOps</h3>
         <div class="skill-items">AWS · Docker · Kubernetes (K3S)<br>GitHub Actions CI/CD · Nginx<br>Pulumi IaC · PM2 · VPC Peering</div>
       </div>
       <div class="skill-card reveal" style="--card-accent: #ec4899;">
         <span class="skill-icon">🔗</span>
-        <div class="skill-category">Blockchain</div>
+        <h3 class="skill-category">Blockchain</h3>
         <div class="skill-items">Ethereum · Solidity · Hardhat<br>Hyperledger Fabric &amp; Besu<br>IPFS · Smart Contracts · EVM</div>
       </div>
       <div class="skill-card reveal" style="--card-accent: #fbbf24;">
         <span class="skill-icon">🧪</span>
-        <div class="skill-category">Testing & Tools</div>
+        <h3 class="skill-category">Testing & Tools</h3>
         <div class="skill-items">Jest · Mocha · TDD<br>Git · Linux · Agile / SDLC<br>Arduino · Raspberry Pi · ESP8266</div>
       </div>
     </div>
   </section>
 
   <!-- EXPERIENCE -->
-  <section id="experience">
+  <section id="experience" aria-label="Work Experience">
     <div class="section-header reveal">
       <div class="section-label">Work History</div>
       <h2 class="section-title">Where I've Worked</h2>
@@ -1367,7 +1713,7 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects">
+  <section id="projects" aria-label="Projects and Portfolio Work">
     <div class="section-header reveal">
       <div class="section-label">Selected Work</div>
       <h2 class="section-title">Projects I've Built</h2>
@@ -1388,7 +1734,7 @@
             <a href="https://anchorbooks.ai" target="_blank" title="Live Site">↗</a>
           </div>
         </div>
-        <div class="project-title">AnchorBooks — Accounting SaaS</div>
+        <h3 class="project-title">AnchorBooks — Accounting SaaS</h3>
         <div class="project-desc">
           Multi-tenant bookkeeping platform handling invoices, bills, recurring billing, financial reports,
           and PDF generation. Implemented OCR via Tesseract.js for automated document parsing and
@@ -1407,7 +1753,7 @@
           <span class="project-icon">🎓</span>
           <div class="project-links"></div>
         </div>
-        <div class="project-title">LMS with AI Integration</div>
+        <h3 class="project-title">LMS with AI Integration</h3>
         <div class="project-desc">
           Video-based learning management subscription platform with integrated AI chat assistant.
           Handled video processing pipelines with ffmpeg, async job queuing via RabbitMQ,
@@ -1426,7 +1772,7 @@
           <span class="project-icon">👥</span>
           <div class="project-links"></div>
         </div>
-        <div class="project-title">HRMS — HR Management System</div>
+        <h3 class="project-title">HRMS — HR Management System</h3>
         <div class="project-desc">
           Enterprise HR platform with split leave management, promotion and increment request workflows,
           payroll management, and RESTful API architecture. Enforced strict data security
@@ -1447,7 +1793,7 @@
             <a href="https://github.com/MohaiminulEraj" target="_blank" title="GitHub">⌥</a>
           </div>
         </div>
-        <div class="project-title">Indicium — NFT Marketplace</div>
+        <h3 class="project-title">Indicium — NFT Marketplace</h3>
         <div class="project-desc">
           Full-stack NFT marketplace enabling users to discover, mint, and trade digital collectibles.
           Integrated MetaMask, Coinbase, and WalletConnect. Built smart contracts in Solidity,
@@ -1468,7 +1814,7 @@
             <a href="https://github.com/MohaiminulEraj/careforyou" target="_blank" title="GitHub">⌥</a>
           </div>
         </div>
-        <div class="project-title">CareForYou — Healthcare Platform</div>
+        <h3 class="project-title">CareForYou — Healthcare Platform</h3>
         <div class="project-desc">
           Healthcare platform enabling real-time patient-doctor interaction, expert content verification
           to prevent medical misinformation, and specialist consultation booking. Built with Socket.io
@@ -1486,7 +1832,7 @@
           <span class="project-icon">📱</span>
           <div class="project-links"></div>
         </div>
-        <div class="project-title">bKash Remote Debug Tool</div>
+        <h3 class="project-title">bKash Remote Debug Tool</h3>
         <div class="project-desc">
           Desktop application built with Electron.js to remotely debug the Android bKash fintech app
           on customer devices — reducing field support time and enabling engineers to diagnose
@@ -1510,7 +1856,7 @@
           <span class="project-icon">🏦</span>
           <div class="project-links"></div>
         </div>
-        <div class="project-title">CBDC — Central Bank Digital Currency</div>
+        <h3 class="project-title">CBDC — Central Bank Digital Currency</h3>
         <div class="project-desc">
           Wrote and deployed smart contract implementation for a Central Bank Digital Currency protocol
           (CEX protocol). Implemented on-chain data retrieval subgraphs for efficient state querying,
@@ -1530,7 +1876,7 @@
             <a href="https://github.com/MohaiminulEraj" target="_blank" title="GitHub">⌥</a>
           </div>
         </div>
-        <div class="project-title">DEX Protocol — Decentralized Exchange</div>
+        <h3 class="project-title">DEX Protocol — Decentralized Exchange</h3>
         <div class="project-desc">
           On-chain decentralized token exchange where users can trade ERC-20 tokens, create limit orders,
           cancel and fill orders — all enforced by smart contracts. Includes a React trading dashboard
@@ -1548,7 +1894,7 @@
           <span class="project-icon">🚚</span>
           <div class="project-links"></div>
         </div>
-        <div class="project-title">SCM Prototype — Blockchain Supply Chain</div>
+        <h3 class="project-title">SCM Prototype — Blockchain Supply Chain</h3>
         <div class="project-desc">
           Multi-platform blockchain supply chain management prototype built across Hyperledger Fabric,
           Hyperledger Besu, and Hyperledger Grid. Implemented private multi-node network architecture,
@@ -1570,7 +1916,7 @@
             </div>
           </div>
         </div>
-        <div class="project-title">MontyPy — MultiSig Shared Wallet</div>
+        <h3 class="project-title">MontyPy — MultiSig Shared Wallet</h3>
         <div class="project-desc">
           A shared on-chain treasury wallet built on an <strong style="color:var(--text)">M-of-N signature scheme</strong>
           — N owners are registered at deploy time, and any inbound transaction requires at least M of them to
@@ -1593,8 +1939,100 @@
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section id="faq" aria-label="Frequently Asked Questions">
+    <div class="section-header reveal">
+      <div class="section-label">FAQ</div>
+      <h2 class="section-title">Common Questions</h2>
+    </div>
+
+    <div class="faq-list">
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">
+          <span class="faq-num">01</span>
+          <span class="faq-text">What is Mohaiminul's primary technology stack?</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-answer">
+          His core stack centers on Node.js, NestJS, and TypeScript for backend development,
+          paired with React and Next.js on the frontend. For data, he works primarily with
+          PostgreSQL, MongoDB, and Redis, and deploys on AWS using Docker and CI/CD pipelines
+          via GitHub Actions.
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">
+          <span class="faq-num">02</span>
+          <span class="faq-text">Is he available for remote work with international teams?</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-answer">
+          Yes. He is based in Dhaka, Bangladesh (GMT+6) and currently works full-time remote
+          for a team in Australia. He's open to full-time, contract, or freelance Full Stack,
+          Backend, or Blockchain Engineering roles with teams anywhere in the world.
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">
+          <span class="faq-num">03</span>
+          <span class="faq-text">Does he have professional blockchain and Web3 experience?</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-answer">
+          Yes — over three years building production blockchain systems, including Solidity
+          smart contracts on Ethereum and Polygon Mainnet, NFT marketplaces, a decentralized
+          exchange (DEX), multi-signature wallets, and Hyperledger Fabric/Besu supply chain
+          networks.
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">
+          <span class="faq-num">04</span>
+          <span class="faq-text">How many years of professional experience does he have?</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-answer">
+          5+ years across four companies, progressing from Junior Software Engineer to
+          Senior Software Engineer (Backend Focused), with hands-on experience in both
+          startup and enterprise environments.
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">
+          <span class="faq-num">05</span>
+          <span class="faq-text">What kinds of projects has he built?</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-answer">
+          Production SaaS platforms including an accounting and bookkeeping system used by
+          real businesses, an AI-integrated learning management system, an HR management
+          system, healthcare platforms with real-time features, and multiple blockchain
+          projects including NFT marketplaces and DeFi-adjacent protocols.
+        </div>
+      </details>
+
+      <details class="faq-item reveal">
+        <summary class="faq-question">
+          <span class="faq-num">06</span>
+          <span class="faq-text">What's the best way to get in touch about an opportunity?</span>
+          <span class="faq-icon">+</span>
+        </summary>
+        <div class="faq-answer">
+          The fastest way is email at eraj471@gmail.com, or connect via LinkedIn and GitHub —
+          both linked in the contact section below.
+        </div>
+      </details>
+
+    </div>
+  </section>
+
   <!-- CONTACT -->
-  <section id="contact">
+  <section id="contact" aria-label="Contact Information">
     <div class="section-header">
       <div class="section-label">Contact</div>
       <h2 class="contact-tagline reveal">Let's build something remarkable.</h2>
