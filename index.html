@@ -108,6 +108,122 @@
     font-size: 16px;
     line-height: 1.6;
     overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Hide cursor on all interactive elements on pointer-capable devices */
+  @media (pointer: fine) {
+    *, a, button, input, [role="button"] { cursor: none !important; }
+  }
+
+  /* SPACESHIP CURSOR */
+  #spaceship-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 36px;
+    height: 36px;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    will-change: left, top, transform;
+    filter: drop-shadow(0 0 7px rgba(0, 212, 255, 0.85));
+    transition: filter 0.2s ease, opacity 0.3s ease;
+    opacity: 0;
+  }
+
+  #spaceship-cursor.visible { opacity: 1; }
+
+  #spaceship-cursor.hovering {
+    filter: drop-shadow(0 0 14px rgba(0, 212, 255, 1))
+            drop-shadow(0 0 5px rgba(0, 255, 136, 0.7));
+  }
+
+  #spaceship-cursor.clicking {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 1));
+    transform: translate(-50%, -50%) scale(1.2) !important;
+  }
+
+  .engine-glow-anim {
+    animation: enginePulse 0.7s ease-in-out infinite alternate;
+    transform-origin: center;
+  }
+
+  @keyframes enginePulse {
+    from { opacity: 0.45; transform: scaleX(0.8); }
+    to   { opacity: 0.9;  transform: scaleX(1.2); }
+  }
+
+  #cursor-trail-canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99998;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* On touch-only devices, hide cursor elements and restore default cursor */
+  @media (pointer: coarse) {
+    #spaceship-cursor, #cursor-trail-canvas { display: none !important; }
+    *, a, button, input, [role="button"] { cursor: auto !important; }
+    body { cursor: auto !important; }
+  }
+
+  /* SHIP CURSOR — ELEMENT FEEDBACK ═══════════════════════════════════ */
+  /* Built with `inset` on a pseudo-element so the browser's own box
+     model guarantees perfectly equal left/right/top/bottom spacing —
+     no JS rect math, no canvas/DOM coordinate sync, so it can never
+     drift off-center and is automatically responsive to any resize,
+     zoom, scroll, or transform without extra code. */
+
+  .ship-locked {
+    position: relative;
+  }
+
+  .ship-locked::after {
+    content: '';
+    position: absolute;
+    inset: -9px;
+    border: 1.5px solid rgba(0, 212, 255, 0.55);
+    border-radius: 14px;
+    pointer-events: none;
+    z-index: 6;
+    animation: shipLockPulse 1.6s ease-in-out infinite;
+  }
+
+  @keyframes shipLockPulse {
+    0%, 100% { opacity: 0.45; }
+    50%      { opacity: 0.95; }
+  }
+
+  /* Click "landing" flash — overrides the steady pulse with a brief,
+     punchy outward burst while .ship-hit is also present, then falls
+     back to the calm .ship-locked pulse automatically when it's removed */
+  .ship-locked.ship-hit::after {
+    border-color: rgba(0, 255, 136, 0.95);
+    animation: shipHitOutline 0.6s ease forwards;
+  }
+
+  @keyframes shipHitOutline {
+    0%   { inset: -4px;  opacity: 1;    border-width: 2.5px; }
+    100% { inset: -16px; opacity: 0;    border-width: 1px;   }
+  }
+
+  /* Fallback flash for the rare case a click lands without a prior
+     hover-lock (e.g. fast tap) — same guaranteed-symmetric approach */
+  .ship-hit:not(.ship-locked) {
+    position: relative;
+  }
+
+  .ship-hit:not(.ship-locked)::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border: 2.5px solid rgba(0, 255, 136, 0.95);
+    border-radius: 14px;
+    pointer-events: none;
+    z-index: 6;
+    animation: shipHitOutline 0.6s ease forwards;
   }
 
   /* CANVAS */
@@ -544,14 +660,14 @@
     padding: 1.75rem;
     transition: border-color 0.3s, transform 0.3s;
     position: relative;
-    overflow: hidden;
   }
 
   .skill-card::before {
     content: '';
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0; left: 2px; right: 2px;
     height: 2px;
+    border-radius: 2px;
     background: var(--card-accent, var(--accent));
     opacity: 0;
     transition: opacity 0.3s;
@@ -773,7 +889,6 @@
     background: var(--bg-card);
     border: 1px solid var(--border);
     border-radius: 8px;
-    overflow: hidden;
     transition: border-color 0.3s ease;
   }
 
@@ -993,6 +1108,8 @@
   .hamburger {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
     cursor: pointer;
     background: none;
@@ -1448,7 +1565,31 @@
 </head>
 <body>
 
-<!-- 3D Canvas -->
+<!-- SPACESHIP CURSOR -->
+<canvas id="cursor-trail-canvas"></canvas>
+<div id="spaceship-cursor" aria-hidden="true">
+  <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+    <!-- Engine exhaust glow -->
+    <ellipse cx="18" cy="31" rx="5.5" ry="2.5" fill="#00ff88" class="engine-glow-anim"/>
+    <!-- Left wing -->
+    <polygon points="10,24 2,32 8,26" fill="#7c6af5" opacity="0.80"/>
+    <!-- Right wing -->
+    <polygon points="26,24 34,32 28,26" fill="#7c6af5" opacity="0.80"/>
+    <!-- Main fuselage -->
+    <polygon points="18,2 27,28 18,24 9,28" fill="#00d4ff"/>
+    <!-- Fuselage shading -->
+    <polygon points="18,2 22,22 18,20 14,22" fill="rgba(255,255,255,0.18)"/>
+    <!-- Engine nozzle -->
+    <rect x="14" y="27" width="8" height="4" rx="2" fill="#0a1628"/>
+    <rect x="15.5" y="28" width="5" height="2" rx="1" fill="#00ff88" opacity="0.85"/>
+    <!-- Cockpit outer -->
+    <ellipse cx="18" cy="12" rx="3.5" ry="4.5" fill="#a78bfa"/>
+    <!-- Cockpit glass -->
+    <ellipse cx="18" cy="11.5" rx="2.2" ry="3" fill="rgba(255,255,255,0.42)"/>
+    <!-- Cockpit glare -->
+    <ellipse cx="17" cy="10.5" rx="0.8" ry="1.4" fill="rgba(255,255,255,0.7)" opacity="0.6"/>
+  </svg>
+</div>
 <canvas id="canvas-3d"></canvas>
 
 <!-- Background effects -->
@@ -1462,11 +1603,11 @@
     <span>~/</span>eraj
   </div>
   <ul class="nav-links" id="primary-navigation">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact" class="nav-cta">Contact</a></li>
+    <li><a href="#about"><span class="nav-label">About</span></a></li>
+    <li><a href="#skills"><span class="nav-label">Skills</span></a></li>
+    <li><a href="#experience"><span class="nav-label">Experience</span></a></li>
+    <li><a href="#projects"><span class="nav-label">Projects</span></a></li>
+    <li><a href="#contact" class="nav-cta"><span class="nav-label">Contact</span></a></li>
   </ul>
   <button class="hamburger" aria-label="Open navigation menu" aria-expanded="false" aria-controls="primary-navigation">
     <span></span><span></span><span></span>
@@ -2449,6 +2590,279 @@
     yearEl.textContent = new Date(Date.now()).getFullYear();
   }
 
+})();
+</script>
+
+<!-- SPACESHIP CURSOR ENGINE -->
+<script>
+(function() {
+  if (!window.matchMedia('(pointer: fine)').matches) return;
+
+  const ship   = document.getElementById('spaceship-cursor');
+  const canvas = document.getElementById('cursor-trail-canvas');
+  const ctx    = canvas.getContext('2d');
+
+  // ── Geometry constants (SVG is 36×36, origin at top-left) ──────────
+  // Nose tip:  SVG (18, 2)  → local (-) relative to center (18,18): (0, -16)
+  // Engine:    SVG (18, 28) → local (+) relative to center (18,18): (0, +10)
+  // ENGINE_DIST = distance from nose to engine along the rocket axis = 26px
+  const NOSE_OFFSET   = 16;  // center is this many px BEHIND the nose
+  const ENGINE_DIST   = 26;  // engine is this many px behind the nose
+
+  function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  // ── State ───────────────────────────────────────────────────────────
+  let noseX = -300, noseY = -300;   // raw mouse = desired nose position
+  let curX  = -300, curY  = -300;   // smoothed nose position (what we track)
+  let prevX = -300, prevY = -300;
+  let angle = 0;                     // CSS degrees; 0 → nose points UP
+  let particles = [];
+  let overlays  = [];
+  let lockedEl  = null;
+  let appeared  = false;
+
+  // ── Mouse ───────────────────────────────────────────────────────────
+  document.addEventListener('mousemove', e => {
+    noseX = e.clientX; noseY = e.clientY;
+    if (!appeared) { ship.classList.add('visible'); appeared = true; }
+  });
+  document.addEventListener('mouseleave', () => ship.classList.remove('visible'));
+  document.addEventListener('mouseenter', () => { if (appeared) ship.classList.add('visible'); });
+
+  // ── Interactivity ───────────────────────────────────────────────────
+  const SEL = 'a,button,[role="button"],summary,.project-card,.skill-card,.faq-item,.social-link,.btn-primary,.btn-secondary,.nav-cta,.timeline-item';
+
+  document.addEventListener('mouseover', e => {
+    const el = e.target.closest(SEL);
+    if (el === lockedEl) return;
+    if (lockedEl) lockedEl.classList.remove('ship-locked');
+    lockedEl = el;
+    if (lockedEl) {
+      lockedEl.classList.add('ship-locked');
+      ship.classList.add('hovering');
+    } else {
+      ship.classList.remove('hovering');
+    }
+  });
+
+  document.addEventListener('mousedown', e => {
+    ship.classList.add('clicking');
+
+    // Canvas burst ring + particles at nose position (cursor-relative,
+    // not tied to any element's geometry — unaffected by this fix)
+    addRing(curX, curY);
+    spawnBurst(curX, curY, 22);
+
+    // Element feedback is now a pure CSS outline (.ship-hit), positioned
+    // via `inset` so the browser's box model guarantees it sits exactly
+    // OUTSIDE the component with perfectly equal spacing on every side —
+    // no JS rect tracking, so it can't drift off-center, and it's
+    // automatically responsive to any layout change.
+    const el = e.target.closest(SEL);
+    if (el) {
+      el.classList.add('ship-hit');
+      setTimeout(() => el.classList.remove('ship-hit'), 650);
+    }
+    setTimeout(() => ship.classList.remove('clicking'), 200);
+  });
+
+  // ── Rotation helper ─────────────────────────────────────────────────
+  // CSS rotate(angle) clockwise in screen (y-down) coords.
+  // For local point (lx, ly), world offset after rotate(a):
+  //   wx = lx·cos(a) − ly·sin(a)
+  //   wy = lx·sin(a) + ly·cos(a)
+  // Verified: nose (0,−16) at a=90° → (+16, 0) = right ✓
+  //           engine (0,+10) at a=90° → (−10, 0) = left ✓
+  function rotateLocal(lx, ly, a) {
+    return { x: lx * Math.cos(a) - ly * Math.sin(a),
+             y: lx * Math.sin(a) + ly * Math.cos(a) };
+  }
+
+  function lerpAngle(a, b, t) {
+    return a + (((b - a + 540) % 360) - 180) * t;
+  }
+
+  // ── Particle helpers ────────────────────────────────────────────────
+  function addPt(x, y, vx, vy, size, life, color) {
+    particles.push({ x, y, vx, vy, size, life, maxLife: life, color });
+  }
+
+  const EXHAUST_C = ['#00d4ff','#00ff88','#a78bfa','rgba(255,255,255,0.65)'];
+  const BURST_C   = ['#00ff88','#00d4ff','#a78bfa','#ffffff','#fbbf24'];
+
+  // ── Thrust level: smoothed 0 (idle) → 1 (full throttle) ────────────
+  let thrustLevel  = 0;   // current smoothed thrust (0–1)
+  let rawSpeed     = 0;   // smoothed speed in px/frame
+
+  // spawnExhaust now takes:
+  //   a       = rotation angle in radians
+  //   thrust  = 0 (idle glimmer) → 1 (full burn), controls size/life/opacity/speed
+  function spawnExhaust(a, thrust) {
+    const engX = curX + ENGINE_DIST * (-Math.sin(a));
+    const engY = curY + ENGINE_DIST * ( Math.cos(a));
+
+    // Ship-relative axes:
+    //   backward (exhaust direction) = (-sin a,  cos a)  — unit vector
+    //   perpendicular (lateral)      = (-cos a, -sin a)  — unit vector, 90° to backward
+    // Spread is applied ONLY along the perpendicular axis so the flame's
+    // centerline always points exactly backward from the engine — it
+    // never visually drifts to one side regardless of ship orientation.
+    const bx = -Math.sin(a), by = Math.cos(a);
+    const px = -Math.cos(a), py = -Math.sin(a);
+
+    // Idle: tiny, slow, dim, tight. Full throttle: large, fast, bright, wider plume.
+    const baseSpeed   = 0.25 + thrust * 2.5;             // 0.25 → 2.75 px/frame
+    const ptSpeed     = baseSpeed + Math.random() * baseSpeed * 0.5;
+    const lateralSpan = 0.10 + thrust * 0.6;             // very tight when idle
+    const lateralAmt  = (Math.random() - 0.5) * lateralSpan;
+    const ptSize      = 0.35 + thrust * 2.6 + Math.random() * 1.0;  // 0.35–4 px
+    const ptLife      = Math.round(7 + thrust * 22 + Math.random() * 8); // 7–37 frames
+    const opacity     = 0.30 + thrust * 0.60;
+
+    // Velocity = pure backward thrust + lateral wobble (perpendicular only)
+    const vx = bx * ptSpeed + px * lateralAmt;
+    const vy = by * ptSpeed + py * lateralAmt;
+
+    // Color: idle = dim steady blue; throttle adds green/white/purple streaks
+    let color;
+    const r = Math.random();
+    if (thrust < 0.2) {
+      color = `rgba(0,190,230,${(0.35 + thrust * 0.5).toFixed(2)})`;
+    } else if (r < 0.45) {
+      color = '#00d4ff';
+    } else if (r < 0.78) {
+      color = '#00ff88';
+    } else if (r < 0.92) {
+      color = '#a78bfa';
+    } else {
+      color = 'rgba(255,255,255,0.75)';
+    }
+
+    particles.push({ x: engX, y: engY, vx, vy, size: ptSize,
+      life: ptLife, maxLife: ptLife, color, alpha: opacity });
+  }
+
+  function spawnBurst(x, y, n) {
+    for (let i = 0; i < n; i++) {
+      const a = (Math.PI * 2 / n) * i + Math.random() * 0.3;
+      const spd = Math.random() * 5 + 2;
+      addPt(x, y, Math.cos(a) * spd, Math.sin(a) * spd,
+        Math.random() * 3.5 + 1.5, Math.random() * 36 + 20,
+        BURST_C[Math.floor(Math.random() * BURST_C.length)]);
+    }
+  }
+
+  // ── Canvas overlays ─────────────────────────────────────────────────
+  function addRing(x, y) {
+    overlays.push({ type: 'ring', x, y, life: 1 });
+  }
+
+  // ── RAF loop ────────────────────────────────────────────────────────
+  let frame = 0;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    frame++;
+
+    // Smooth nose toward actual mouse position
+    curX += (noseX - curX) * 0.22;
+    curY += (noseY - curY) * 0.22;
+
+    const dx = curX - prevX, dy = curY - prevY;
+    const spd = Math.sqrt(dx * dx + dy * dy);
+
+    if (spd > 0.35) {
+      // atan2(dy, dx) + 90° maps movement direction to CSS rotation
+      // (movement right → +90° → SVG nose points right)
+      angle = lerpAngle(angle, Math.atan2(dy, dx) * (180 / Math.PI) + 90, 0.10);
+    }
+
+    prevX = curX; prevY = curY;
+
+    // ── Thrust level: smoothed 0–1 based on cursor speed ─────────────
+    // rawSpeed decays toward 0 each frame; jumps up with real movement
+    rawSpeed    = rawSpeed * 0.78 + spd * 0.22;
+    // Map speed → thrust: saturates at ~18 px/frame = full throttle
+    const targetThrust = Math.min(rawSpeed / 18, 1);
+    // Ease toward target: rise fast, fall slow (engine spools down gradually)
+    const riseRate = 0.22, fallRate = 0.045;
+    thrustLevel += (targetThrust > thrustLevel ? riseRate : fallRate)
+                   * (targetThrust - thrustLevel);
+    thrustLevel = Math.max(0, Math.min(1, thrustLevel));
+
+    const a = angle * Math.PI / 180;
+    const shipCX = curX - NOSE_OFFSET * Math.sin(a);
+    const shipCY = curY + NOSE_OFFSET * Math.cos(a);
+
+    ship.style.left      = shipCX + 'px';
+    ship.style.top       = shipCY + 'px';
+    ship.style.transform = `translate(-50%,-50%) rotate(${angle}deg)`;
+
+    // ── Velocity-aware exhaust spawning ───────────────────────────────
+    // Idle: a small continuous flame, 1 particle every frame (steady hum)
+    // Full throttle: up to 5 particles per frame (roaring burn)
+    const particlesThisFrame = thrustLevel < 0.05
+      ? 1                                                 // steady idle flame
+      : Math.round(1 + thrustLevel * 4 + (lockedEl ? 1 : 0)); // throttle-scaled
+
+    for (let i = 0; i < particlesThisFrame; i++) {
+      spawnExhaust(a, thrustLevel);
+    }
+
+    // ── Draw ──────────────────────────────────────────────────────────
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Particles
+    particles = particles.filter(p => {
+      p.x += p.vx; p.y += p.vy; p.vx *= 0.96; p.vy *= 0.96; p.life--;
+      if (p.life <= 0) return false;
+      const t    = p.life / p.maxLife;
+      const alpha = (p.alpha !== undefined ? p.alpha : 0.85) * t;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, Math.max(p.size * t, 0.3), 0, Math.PI * 2);
+      ctx.fillStyle   = p.color;
+      ctx.globalAlpha = alpha;
+      ctx.fill();
+      return true;
+    });
+
+    // Overlays (click-position ring bursts — element-targeted hover/
+    // click decoration is now handled by native CSS pseudo-elements,
+    // see .ship-locked / .ship-hit)
+    overlays = overlays.filter(o => {
+      if (o.type === 'ring') {
+        o.life -= 0.05;
+        if (o.life <= 0) return false;
+        const progress = 1 - o.life;
+        const r = 6 + 58 * progress;           // expands 6→64px
+        ctx.beginPath();
+        ctx.arc(o.x, o.y, r, 0, Math.PI * 2);
+        ctx.strokeStyle  = '#00ff88';
+        ctx.lineWidth    = 2.5 * o.life;
+        ctx.globalAlpha  = o.life;
+        ctx.stroke();
+
+        // Second ring: smaller, faster, cyan
+        if (progress < 0.6) {
+          const r2 = 4 + 35 * (progress / 0.6);
+          ctx.beginPath();
+          ctx.arc(o.x, o.y, r2, 0, Math.PI * 2);
+          ctx.strokeStyle = '#00d4ff';
+          ctx.lineWidth   = 1.5 * o.life;
+          ctx.stroke();
+        }
+      }
+
+      ctx.globalAlpha = 1;
+      return true;
+    });
+
+    ctx.globalAlpha = 1;
+  }
+
+  animate();
 })();
 </script>
 
